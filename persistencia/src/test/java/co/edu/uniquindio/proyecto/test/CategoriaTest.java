@@ -14,11 +14,7 @@ import org.springframework.test.context.jdbc.Sql;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Se crean los archivos de testeo para Categoria,
- * Aqui probamos el modelo mediante el archivo sql para
- *  pruebas (pruebas.sql)
- */
+
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
 public class CategoriaTest {
@@ -27,46 +23,40 @@ public class CategoriaTest {
     private CategoriaRepo categoriaRepo;
 
     @Test
-    public void registrarTest(){//Se crea la entidad para guardarla en el repositorio y verificar el registro
+    public void registrarTest(){
 
-        Categoria categoria = new Categoria();
-        categoria.setCodigo("3672");
-        categoria.setNombre("Electrodomesticos");
-
+        Categoria categoria = new Categoria("Comida");
         Categoria categoriaGuardado= categoriaRepo.save(categoria);
         System.out.println(categoriaGuardado);
         Assertions.assertNotNull(categoriaGuardado);
-
     }
 
 
     @Test
-    @Sql("classpath:pruebas.sql")//Archivo sql
-    public void eliminarTest(){ //Se elimina una entidad del repositorio mediante su llave primaria
+    @Sql("classpath:pruebas.sql")
+    public void eliminarTest(){
 
-        categoriaRepo.deleteById("3672");
-
-        Categoria categoriaBuscado= categoriaRepo.findById("3672").orElse(null);
-
+        categoriaRepo.deleteById(2);
+        Categoria categoriaBuscado= categoriaRepo.findById(2).orElse(null);
         Assertions.assertNull(categoriaBuscado);
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void actualizarTest(){//se actualiza una entidad del repositorio
+    public void actualizarTest(){
 
-
-
-        Categoria guardado = categoriaRepo.findById("3672").orElse(null);
-        guardado.setNombre("Deportes extremos");
+        Categoria guardado = categoriaRepo.findById(3).orElse(null);
+        guardado.setNombre("Mascotas");
         categoriaRepo.save(guardado);
-        Categoria categoriaBuscado= categoriaRepo.findById("3672").orElse(null);
-        Assertions.assertEquals("Deportes extremos", categoriaBuscado.getNombre());
+        Categoria categoriaBuscado= categoriaRepo.findById(3).orElse(null);
+        Assertions.assertEquals("Mascotas", categoriaBuscado.getNombre());
     }
     @Test
     @Sql("classpath:pruebas.sql")
-    public  void listarTest(){//Se listan las entidades creadas en pruebas.sql
+    public  void listarTest(){
         List<Categoria> categorias= categoriaRepo.findAll();
         categorias.forEach(categoria -> System.out.println(categoria));
     }
+
+
 }

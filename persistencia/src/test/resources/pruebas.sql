@@ -1,54 +1,55 @@
-insert into ciudad values (123,"Armenia");
-insert into ciudad values (3312,"Buga");
-insert into ciudad values (0987,"Cali");
+insert into ciudad values (1, "Armenia");
+insert into ciudad values (2, "Bogota");
+insert into ciudad values (3, "Quimbaya");
 
-insert into usuario values ("456", "santiago@12", "santiago Mejia", "usuario04", 123);
-insert  into usuario values("777", "michell@123", "carlos el pibe", "carlitos13", 123);
-insert into usuario values ("888", "julio39@12", "julio jaramillo", "julito12", 3312);
+insert into usuario values ("123", "hola123", "nikorodri@gmail.com", "Nicolas", 1);
+insert into usuario values ("456", "hellou123", "camcam@gmail.com", "Camilo", 2);
+insert into usuario values ("789", "salut123", "Serch@gmail.com", "Santiago", 3);
 
-insert into usuario_telefono values("456", "7476239", "fijo");
-insert into usuario_telefono values("456", "312 714 9268", "personal");
+insert into administrador values ("7878","x1234","@123","Sara");
+insert into administrador values ("4545", "y456","@456","Alexander");
+insert into administrador values ("3535", "z789","@789","Niko");
 
+insert into producto values ("111", "Lleno de potacio", 0.2, "2021/10/19", "Banano", 750.0, 10, 2, "123");
+insert into producto values ("222", "Lleno de fibra", 0.3, "2021/10/20", "Carne", 5000.0, 5000, 1, "456");
+insert into producto values ("333", "Lleno de hierro", 0.4, "2025/10/30", "Cereal", 8000.0, 5, 3, "789");
 
-insert into administrador values ("119", "Santiago Mejia", "andress.mejiaf@", "119289");
-insert into administrador values ("229", "Jacobo Sanchez", "jac@gmail", "1233");
-insert into administrador values ("339", "Alexis Salazar", "alexS.socha@", "55678");
+insert into producto_imagen values ("111", "http:/imagen.png", "banano");
+insert into producto_imagen values ("222", "http:/imagen.png", "casa");
+insert into producto_imagen values ("333", "http:/imagen99.png", "yogurt");
 
-insert into chat values ("100", "456");
-insert into chat values ("200", "777");
-insert into chat values ("300", "888");
+insert into comentario values ("a1", 5, "2021/10/19", "Hola, me ha interesado mucho tu producto", "gracias", "111", "123");
+insert into comentario values ("a2", 5, "2021/10/19", "Hola, me ha interesado mucho tu producto", "gracias", "222", "123");
+insert into comentario values ("a3", 5, "2021/10/19", "Hola, me ha interesado mucho tu producto", "gracias", "333", "123");
 
-insert into mensaje values ("999", "carlos Fernando", "2000/10/12", "Hola que tal","100");
-insert into mensaje values ("787", "Julian santiago", "2020/10/13", "como esta?","200");
-insert into mensaje values ("090", "karol Natalia", "2020/10/14", "buenas tarde","300");
+insert into categoria   values (1,"Tecnologia");
+insert into categoria   values (2,"Deporte");
+insert into categoria   values (3,"Libros");
 
+insert into compra  values (1,"2021/05/06","CREDITO","123");
+insert into compra  values (2,"2021/07/05","DEBITO","456");
+insert into compra  values (3,"2021/08/03","EFECTIVO","789");
 
-insert into producto values ("9090", "consola ultimo modelo", 0.10,"2021/10/9","Xbox one",950.000, 30, 123, "777");
-insert into producto values ("22324", "moto ultimo modelo", 0.13,"2021/10/4","yamaha 650",800.000, 2,3312, "888");
-insert into producto values ("4546", "nevera ultimo modelo", 0.30,"2021/09/1","Nevera",550.000, 15, 123, "456");
+insert into detalle_compra  values ("569", 6000.0, 5,1, "111");
+insert into detalle_compra  values ("785", 5000.0, 2,2, "222");
+insert into detalle_compra  values ("432", 8000.0, 7,3, "333");
 
-insert into subasta values ("8787",  "2000/11/12", "9090");
-insert into subasta values ("9477",  "2021/09/22", "22324");
-insert into subasta values ("7480", "2021/08/19", "4546");
+insert into usuario_telefonos values ("123", "3114012221","trabajo");
+insert into usuario_telefonos values ("456", "3114012222","casa");
+insert into usuario_telefonos values ("789", "3114012223","casa");
 
-insert into comentario values ("934",12,"2021/04/29","Buen producto", "Producto bien calificado", "9090", "456");
-insert into comentario values ("936",10,"2021/04/29","Mal producto", "Producto mal calificado", "22324", "777");
-insert into comentario values ("937",12,"2021/04/29","Perfecto funcionamiento", "Producto bien calificado", "9090", "888");
+insert into chat values ("100", "123");
+insert into chat values ("200", "456");
+insert into chat values ("300", "789");
 
+insert into mensaje values ("999", "niko", "2020/10/09", "...", "100");
+insert into mensaje values ("787", "sergio", "2020/11/09", "...", "200");
+insert into mensaje values ("090", "fer", "2020/12/09", "...", "300");
 
-insert into compra values ("020", "2021/11/19", "tarjeta debito", "456");
-insert into compra values ("021", "2020/02/29", "tarjeta credito", "777");
-insert into compra values ("032", "2019/10/25", "efectivo", "888");
+insert into subasta values ("4", "2021/03/11", "111");
+insert into subasta values ("5", "2021/04/12", "222");
+insert into subasta values ("6", "2021/11/12", "333");
 
-insert into detalle_compra values ("372", 89.000, 2, "020", "9090");
-insert into detalle_compra values ("373", 90.000,12, "021", "22324");
-insert into detalle_compra values ("984", 28.000,10, "032", "4546");
-
-
-insert into categoria values ("3672", "Electrodomesticos");
-insert into categoria values ("3462", "Area de juegos");
-insert into categoria values ("3214","Automoviles");
-
-insert into subasta_usuario values("4567","2020/02/29", 500000, "8787", "888" );
-insert into subasta_usuario values("4568","2020/02/27", 600000, "9477", "456" );
-insert into subasta_usuario values("4569","2020/02/22", 300000, "7480", "777" );
+insert into subasta_usuario values ("1", "2021/09/20", 50000.00, "4", "123");
+insert into subasta_usuario values ("2", "2021/07/29", 60000.00, "5", "456");
+insert into subasta_usuario values ("3", "2021/08/13", 80000.00, "6", "789");

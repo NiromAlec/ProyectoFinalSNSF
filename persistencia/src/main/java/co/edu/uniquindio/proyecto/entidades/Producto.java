@@ -14,7 +14,7 @@ import java.util.Map;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-@AllArgsConstructor
+
 
 public class Producto implements Serializable {
     @Id
@@ -70,7 +70,15 @@ public class Producto implements Serializable {
     @ToString.Exclude
     private List<Comentario> comentarios;
 
-
-
-
+    public Producto(String codigo, String nombre, int unidades, String descripcion, double precio, LocalDate fechaLimite, double descuento, Usuario usuario, Ciudad ciudad) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.unidades = unidades;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.fechaLimite = fechaLimite;
+        this.descuento = descuento;
+        this.usuario = usuario;
+        this.ciudad = ciudad;
+    }
 }

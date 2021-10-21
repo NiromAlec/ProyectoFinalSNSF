@@ -13,38 +13,25 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
 import java.util.List;
-/**
- * Se crean los archivos de testeo para Producto,
- * Aqui probamos el modelo mediante el archivo sql para
- *  pruebas (pruebas.sql)
- */
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ProductoTest {
-/*
+
     @Autowired
-    private ProductoRepo productoRepo; //Repositorio
+    private ProductoRepo productoRepo;
     @Autowired
-    private CiudadRepo ciudadRepo;//Repo auxiliar
+    private CiudadRepo ciudadRepo;
     @Autowired
-    private UsuarioRepo usuarioRepo;//Repo auxiliar
+    private UsuarioRepo usuarioRepo;
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void regirtrarTest(){ //Se crea la entidad para guardarla en el repositorio y verificar el registro
+    public void regirtrarTest(){
 
-        Ciudad ciudad = ciudadRepo.findById(123).orElse(null);
-        Usuario usuario = usuarioRepo.findById("456").orElse(null);
-        Producto producto= new Producto();
-        producto.setCodigo("4456");
-        producto.setDescripcion("Un producto bonito");
-        producto.setDescuento(10.000);
-        producto.setFechaLimite(LocalDate.now());
-        producto.setNombre("Xbox");
-        producto.setPrecio(800.000);
-        producto.setUnidades(12);
-        producto.setCiudad(ciudad);
-        producto.setVendedor(usuario);
+        Ciudad ciudad = ciudadRepo.findById(1).orElse(null);
+        Usuario usuario = usuarioRepo.findById("789").orElse(null);
+        Producto producto= new Producto("444", "arequipe", 10, "arequipe de queso",5000.0,LocalDate.now(), 0.5,  usuario,ciudad);
 
         Producto productoGuardado= productoRepo.save(producto);
         System.out.println(productoGuardado);
@@ -52,32 +39,32 @@ public class ProductoTest {
     }
 
     @Test
-    @Sql("classpath:pruebas.sql")//Archivo sql
-    public void eliminarTest(){ //Se elimina una entidad del repositorio mediante su llave primaria
+    @Sql("classpath:pruebas.sql")
+    public void eliminarTest(){
 
-        productoRepo.deleteById("9090");
+        productoRepo.deleteById("222");
 
-        Producto productoBuscado= productoRepo.findById("9090").orElse(null);
+        Producto productoBuscado= productoRepo.findById("222").orElse(null);
 
         Assertions.assertNull(productoBuscado);
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void actualizarTest(){ //se actualiza una entidad del repositorio
+    public void actualizarTest(){
 
-        Producto guardado = productoRepo.findById("9090").orElse(null);
-        guardado.setNombre("Play 5");
+        Producto guardado = productoRepo.findById("333").orElse(null);
+        guardado.setNombre("Cafe");
         productoRepo.save(guardado);
-        Producto productoBuscado= productoRepo.findById("9090").orElse(null);
-        Assertions.assertEquals("Play 5", productoBuscado.getNombre());
+        Producto productoBuscado= productoRepo.findById("333").orElse(null);
+        Assertions.assertEquals("Cafe", productoBuscado.getNombre());
     }
     @Test
     @Sql("classpath:pruebas.sql")
-    public  void listarTest(){//Se listan las entidades creadas en pruebas.sql
+    public  void listarTest(){
         List<Producto> productos= productoRepo.findAll();
         productos.forEach(producto -> System.out.println(producto));
     }
 
- */
+
 }

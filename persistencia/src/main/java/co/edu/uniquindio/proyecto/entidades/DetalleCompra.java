@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-@AllArgsConstructor
+
 
 public class DetalleCompra implements Serializable {
     @Id
@@ -35,4 +35,12 @@ public class DetalleCompra implements Serializable {
     @JoinColumn(nullable = false)
     @ManyToOne
     private Compra compra;
+
+    public DetalleCompra(String codigo, Integer unidades, Double precioProducto, Producto producto, Compra compra) {
+        this.codigo = codigo;
+        this.unidades = unidades;
+        this.precioProducto = precioProducto;
+        this.producto = producto;
+        this.compra = compra;
+    }
 }

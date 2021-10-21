@@ -13,27 +13,22 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
-/**
- * Se crean los archivos de testeo para Chat,
- * Aqui probamos el modelo mediante el archivo sql para
- *  pruebas (pruebas.sql)
- */
+
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) //contexto de la app
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ChatTest {
 
     @Autowired
-    private ChatRepo chatRepo;//repositorio
+    private ChatRepo chatRepo;
     @Autowired
-    private UsuarioRepo usuarioRepo;//repositorio auxiliar
+    private UsuarioRepo usuarioRepo;
 
     @Test
-    @Sql("classpath:pruebas.sql")//Archivos .sql
-    public void registrarTest(){//Se crea la entidad para guardarla en el repositorio y verificar el registro
+    @Sql("classpath:pruebas.sql")
+    public void registrarTest(){
 
-        Usuario usuario = usuarioRepo.findById("456").orElse(null);
-        Chat chat=new Chat("100",usuario );
-
+        Usuario usuario = usuarioRepo.findById("123").orElse(null);
+        Chat chat=new Chat("400",usuario );
         Chat chatGuardado= chatRepo.save(chat);
         System.out.println(chatGuardado);
         Assertions.assertNotNull(chatGuardado);
@@ -41,12 +36,10 @@ public class ChatTest {
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void eliminarTest(){//Se elimina una entidad del repositorio mediante su llave primaria
+    public void eliminarTest(){
 
-        chatRepo.deleteById("100");
-
-        Chat chatBuscado= chatRepo.findById("100").orElse(null);
-
+        chatRepo.deleteById("300");
+        Chat chatBuscado= chatRepo.findById("300").orElse(null);
         Assertions.assertNull(chatBuscado);
     }
 
@@ -54,10 +47,9 @@ public class ChatTest {
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public  void listarTest(){//Se listan las entidades creadas en pruebas.sql
+    public  void listarTest(){
 
         List<Chat> chats= chatRepo.findAll();
-
         chats.forEach(chat -> System.out.println(chat));
     }
 

@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Compra;
 import co.edu.uniquindio.proyecto.entidades.DetalleCompra;
+import co.edu.uniquindio.proyecto.entidades.MedioPago;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CompraRepo;
 import co.edu.uniquindio.proyecto.repositorios.DetalleCompraRepo;
@@ -15,60 +16,52 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
 import java.util.List;
-/**
- * Se crean los archivos de testeo para Compra,
- * Aqui probamos el modelo mediante el archivo sql para
- *  pruebas (pruebas.sql)
- */
+
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
 public class CompraTest {
 
     @Autowired
-    private CompraRepo compraRepo;//Repositorio
+    private UsuarioRepo usuarioRepo;
     @Autowired
-    private UsuarioRepo usuarioRepo;//Repositorio auxiliar
+    private CompraRepo compraRepo;
+
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void registrarTest(){//Se crea la entidad para guardarla en el repositorio y verificar el registro
-        Usuario usuario=usuarioRepo.findById("456").orElse(null);
-        /*Compra compra = new Compra("235", LocalDate.now(), "Efectivo", usuario);
+    public void registrarTest(){
+        Usuario usuario=usuarioRepo.findById("123").orElse(null);
+        Compra compra = new Compra(10, LocalDate.now(), MedioPago.CREDITO, usuario);
 
         Compra compraGuardado= compraRepo.save(compra);
         System.out.println(compraGuardado);
         Assertions.assertNotNull(compraGuardado);
-*/
+
     }
 
 
     @Test
-    @Sql("classpath:pruebas.sql")//Archivo sql
-    public void eliminarTest(){//Se elimina una entidad del repositorio mediante su llave primaria
+    @Sql("classpath:pruebas.sql")
+    public void eliminarTest(){
 
 
-        compraRepo.deleteById("020");
-        Compra compraBuscado= compraRepo.findById("020").orElse(null);
-
+        compraRepo.deleteById(1);
+        Compra compraBuscado= compraRepo.findById(1).orElse(null);
         Assertions.assertNull(compraBuscado);
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void actualizarTest(){//se actualiza una entidad del repositorio
-/*
-
-        Compra guardado = compraRepo.findById("020").orElse(null);
-        guardado.setMedioPago("Efectivo");
+    public void actualizarTest(){
+        Compra guardado = compraRepo.findById(2).orElse(null);
+        guardado.setMedioPago(MedioPago.EFECTIVO);
         compraRepo.save(guardado);
-        Compra compraBuscado= compraRepo.findById("020").orElse(null);
-        Assertions.assertEquals("Efectivo", compraBuscado.getMedioPago());
-
- */
+        Compra compraBuscado= compraRepo.findById(2).orElse(null);
+        Assertions.assertEquals(MedioPago.EFECTIVO, compraBuscado.getMedioPago());
     }
     @Test
     @Sql("classpath:pruebas.sql")
-    public  void listarTest(){//Se listan las entidades creadas en pruebas.sql
+    public  void listarTest(){
         List<Compra> compras= compraRepo.findAll();
         compras.forEach(compra -> System.out.println(compra));
     }

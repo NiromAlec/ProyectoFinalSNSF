@@ -17,70 +17,59 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-/**
- * Se crean los archivos de testeo para Mensaje,
- * Aqui probamos el modelo mediante el archivo sql para
- *  pruebas (pruebas.sql)
- */
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class MensajeTest {
 
     @Autowired
-    private MensajeRepo mensajeRepo;//Repositorio
+    private MensajeRepo mensajeRepo;
 
     @Autowired
-    private ChatRepo chatRepo;//RepoAuxiliar
+    private ChatRepo chatRepo;
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void registrarTest(){  //Se crea la entidad para guardarla en el repositorio y verificar el registro
+    public void registrarTest(){
 
-        Chat chat= chatRepo.findById("100").orElse(null);
+        Chat chat= chatRepo.findById("200").orElse(null);
 
-        Mensaje mensaje= new Mensaje("3312","Hola como estas?","Juan carlos", LocalDate.now(), chat );
+        Mensaje mensaje= new Mensaje("3102","Hola wenas que hace","Pepito perez", LocalDate.now(), chat );
         Mensaje mensajeGuardado= mensajeRepo.save(mensaje);
         System.out.println(mensajeGuardado);
-        //regresaun valor diferente de null, es decir; la prueba paso
+
         Assertions.assertNotNull(mensajeGuardado);
 
     }
 
     @Test
-    @Sql("classpath:pruebas.sql")//archivo.sql
-    public void eliminarTest(){//Se elimina una entidad del repositorio mediante su llave primaria
+    @Sql("classpath:pruebas.sql")
+    public void eliminarTest(){
 
-        mensajeRepo.deleteById("999");
-
-        Mensaje mensajeBucado= mensajeRepo.findById("999").orElse(null);
-
+        mensajeRepo.deleteById("787");
+        Mensaje mensajeBucado= mensajeRepo.findById("787").orElse(null);
         Assertions.assertNull(mensajeBucado);
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void actualizarTest(){//se actualiza una entidad del repositorio
+    public void actualizarTest(){
 
 
-        Mensaje guardado = mensajeRepo.findById("999").orElse(null);
+        Mensaje guardado = mensajeRepo.findById("090").orElse(null);
 
-        guardado.setMensaje("estudiaste ?");
-
-        //guardo el usuario
+        guardado.setMensaje("vamos a cine?");
         mensajeRepo.save(guardado);
-
-        Mensaje mensajeBuscado= mensajeRepo.findById("999").orElse(null);
-
-        Assertions.assertEquals("estudiaste ?", mensajeBuscado.getMensaje());
+        Mensaje mensajeBuscado= mensajeRepo.findById("090").orElse(null);
+        Assertions.assertEquals("vamos a cine?", mensajeBuscado.getMensaje());
 
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public  void listarTest(){ //Se listan las entidades creadas en pruebas.sql
+    public  void listarTest(){
 
         List<Mensaje> mensajes= mensajeRepo.findAll();
-
         mensajes.forEach(mensaje -> System.out.println(mensaje));
     }
 }

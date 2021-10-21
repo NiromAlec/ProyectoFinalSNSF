@@ -15,27 +15,23 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
 import java.util.List;
-/**
- * Se crean los archivos de testeo para Subasta,
- * Aqui probamos el modelo mediante el archivo sql para
- *  pruebas (pruebas.sql)
- */
+
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
 public class SubastaTest {
 
     @Autowired
-    private SubastaRepo subastaRepo;//Repositorio
+    private SubastaRepo subastaRepo;
     @Autowired
-    private ProductoRepo productoRepo; //Repositorio Auxiliar
+    private ProductoRepo productoRepo;
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void registrarTest(){ //Se crea la entidad para guardarla en el repositorio y verificar el registro
+    public void registrarTest(){
 
-        Producto producto = productoRepo.findById("9090").orElse(null);
+        Producto producto = productoRepo.findById("111").orElse(null);
 
-        Subasta subasta= new Subasta("234", LocalDate.now(), producto );
+        Subasta subasta= new Subasta("4", LocalDate.now(), producto );
 
         Subasta subastaGuardado= subastaRepo.save(subasta);
         System.out.println(subastaGuardado);
@@ -46,28 +42,28 @@ public class SubastaTest {
 
 
     @Test
-    @Sql("classpath:pruebas.sql")//Archivo sql
-    public void eliminarTest(){ //Se elimina una entidad del repositorio mediante su llave primaria
-        subastaRepo.deleteById("8787");
-        Subasta subastaBuscado = subastaRepo.findById("8787").orElse(null);
+    @Sql("classpath:pruebas.sql")
+    public void eliminarTest(){
+        subastaRepo.deleteById("5");
+        Subasta subastaBuscado = subastaRepo.findById("5").orElse(null);
         Assertions.assertNull(subastaBuscado);
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void actualizarTest(){//se actualiza una entidad del repositorio
+    public void actualizarTest(){
 
-        Producto producto = productoRepo.findById("4546").orElse(null);
-        Subasta guardado = subastaRepo.findById("8787").orElse(null);
+        Producto producto = productoRepo.findById("222").orElse(null);
+        Subasta guardado = subastaRepo.findById("6").orElse(null);
         guardado.setProducto(producto);
         subastaRepo.save(guardado);
-        Subasta subastaBuscado= subastaRepo.findById("8787").orElse(null);
+        Subasta subastaBuscado= subastaRepo.findById("6").orElse(null);
         Assertions.assertEquals(producto, subastaBuscado.getProducto());
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public  void listarTest(){//Se listan las entidades creadas en pruebas.sql
+    public  void listarTest(){
         List<Subasta> subastas= subastaRepo.findAll();
         subastas.forEach(subasta -> System.out.println(subasta));
     }

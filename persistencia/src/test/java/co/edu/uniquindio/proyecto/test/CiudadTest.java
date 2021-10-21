@@ -13,53 +13,49 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
-/**
- * Se crean los archivos de testeo para Ciudad,
- * Aqui probamos el modelo mediante el archivo sql para
- *  pruebas (pruebas.sql)
- */
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CiudadTest {
 
     @Autowired
-    private CiudadRepo ciudadRepo;//repositorio
+    private CiudadRepo ciudadRepo;
 
     @Test
-    public void registrarTest(){//Se crea la entidad para guardarla en el repositorio y verificar el registro
+    public void registrarTest(){
 
-        //Ciudad ciudad = new Ciudad("Manizales",6567);
+        Ciudad ciudad = new Ciudad("Cali");
 
-       // Ciudad ciudadGuardado= ciudadRepo.save(ciudad);
-       // System.out.println(ciudadGuardado);
-       // Assertions.assertNotNull(ciudadGuardado);
+        Ciudad ciudadGuardado= ciudadRepo.save(ciudad);
+        System.out.println(ciudadGuardado);
+        Assertions.assertNotNull(ciudadGuardado);
     }
 
 
     @Test
-    @Sql("classpath:pruebas.sql")//Archivo sql
-    public void eliminarTest(){//Se elimina una entidad del repositorio mediante su llave primaria
+    @Sql("classpath:pruebas.sql")
+    public void eliminarTest(){
 
-        ciudadRepo.deleteById(123);
+        ciudadRepo.deleteById(1);
 
-        Ciudad ciudadBuscado= ciudadRepo.findById(123).orElse(null);
+        Ciudad ciudadBuscado= ciudadRepo.findById(1).orElse(null);
 
         Assertions.assertNull(ciudadBuscado);
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void actualizarTest(){//se actualiza una entidad del repositorio
+    public void actualizarTest(){
 
-        Ciudad guardado = ciudadRepo.findById(123).orElse(null);
-        guardado.setNombre("Cali");
+        Ciudad guardado = ciudadRepo.findById(2).orElse(null);
+        guardado.setNombre("Pereira");
         ciudadRepo.save(guardado);
-        Ciudad ciudadBuscado= ciudadRepo.findById(123).orElse(null);
-        Assertions.assertEquals("Cali", ciudadBuscado.getNombre());
+        Ciudad ciudadBuscado= ciudadRepo.findById(2).orElse(null);
+        Assertions.assertEquals("Pereira", ciudadBuscado.getNombre());
     }
     @Test
     @Sql("classpath:pruebas.sql")
-    public  void listarTest(){//Se listan las entidades creadas en pruebas.sql
+    public  void listarTest(){
         List<Ciudad> ciudades= ciudadRepo.findAll();
         ciudades.forEach(ciudad -> System.out.println(ciudad));
     }

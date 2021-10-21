@@ -12,49 +12,43 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
-/**
- * Se crean los archivos de testeo para administrador,
- * Aqui probamos el modelo mediante el archivo sql para
- *  pruebas (pruebas.sql)
- */
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AdministradorTest {
 
     @Autowired
-    private AdministradorRepo administradorRepo; //Repositorio
+    private AdministradorRepo administradorRepo;
     @Test
-    public void regirtrarTest(){  //Se crea la entidad para guardarla en el repositorio y verificar el registro
-
-        Administrador administrador = new Administrador("11928", "mejiaAndres", "andress.mejiaf@", "andresM201");
-
+    public void regirtrarTest(){
+        Administrador administrador = new Administrador("6666", "Sara", "saraScream@", "sara666");
         Administrador administradorGuardado= administradorRepo.save(administrador);
         System.out.println(administradorGuardado);
         Assertions.assertNotNull(administradorGuardado);
     }
 
     @Test
-    @Sql("classpath:pruebas.sql")//Archivo sql
-    public void eliminarTest(){ //Se elimina una entidad del repositorio mediante su llave primaria
-        administradorRepo.deleteById("119");
-        Administrador administradorBuscado = administradorRepo.findById("119").orElse(null);
+    @Sql("classpath:pruebas.sql")
+    public void eliminarTest(){
+        administradorRepo.deleteById("3535");
+        Administrador administradorBuscado = administradorRepo.findById("3535").orElse(null);
         Assertions.assertNull(administradorBuscado);
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void actualizarTest(){//se actualiza una entidad del repositorio
+    public void actualizarTest(){
 
-        Administrador guardado = administradorRepo.findById("119").orElse(null);
-        guardado.setEmail("nuevoEmail@email");
+        Administrador guardado = administradorRepo.findById("4545").orElse(null);
+        guardado.setEmail("CatEmail@email");
         administradorRepo.save(guardado);
-        Administrador administradorBuscado= administradorRepo.findById("119").orElse(null);
-        Assertions.assertEquals("nuevoEmail@email", administradorBuscado.getEmail());
+        Administrador administradorBuscado= administradorRepo.findById("4545").orElse(null);
+        Assertions.assertEquals("CatEmail@email", administradorBuscado.getEmail());
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public  void listarTest(){//Se listan las entidades creadas en pruebas.sql
+    public  void listarTest(){
         List<Administrador> administradores= administradorRepo.findAll();
         administradores.forEach(administrador -> System.out.println(administrador));
     }

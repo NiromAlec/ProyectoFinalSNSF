@@ -14,37 +14,33 @@ import org.springframework.test.context.jdbc.Sql;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-/**
- * Se crean los archivos de testeo para Usuario,
- * Aqui probamos el modelo mediante el archivo sql para
- *  pruebas (pruebas.sql)
- */
+
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) //contexto de la app
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UsuarioTest {
 
     @Autowired
-    private UsuarioRepo usuarioRepo;//Repositorio
+    private UsuarioRepo usuarioRepo;
 
     @Autowired
-    private CiudadRepo ciudadRepo;//Repositorio auxiliar
+    private CiudadRepo ciudadRepo;
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void registrarTest(){ //Se crea la entidad para guardarla en el repositorio y verificar el registro
-        Ciudad ciudad= ciudadRepo.findById(123).orElse(null);
+    public void registrarTest(){
+        Ciudad ciudad= ciudadRepo.findById(1).orElse(null);
         Map<String, String> telefonos= new HashMap<>();
-        telefonos.put("Casa", "3104327744");
-        telefonos.put("Celular", "3214161");
-        Usuario usuario= new Usuario("123", "Andres mejia", "Andress@email", "mejia01", telefonos, ciudad);
+        telefonos.put("Trabajo", "3015219172");
+        telefonos.put("Celular", "3132963897");
+        Usuario usuario= new Usuario("741", "Thomas", "tomas@email", "tom0201", telefonos, ciudad);
         Usuario usuarioGuardado= usuarioRepo.save(usuario);
         System.out.println(usuarioGuardado);
         Assertions.assertNotNull(usuarioGuardado);
 
     }
     @Test
-    @Sql("classpath:pruebas.sql")//Archivo sql
-    public void eliminarTest(){ //Se elimina una entidad del repositorio mediante su llave primaria
+    @Sql("classpath:pruebas.sql")
+    public void eliminarTest(){
 
         usuarioRepo.deleteById("456");
 
@@ -55,24 +51,24 @@ public class UsuarioTest {
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void actualizarTest(){//se actualiza una entidad del repositorio
+    public void actualizarTest(){
 
 
-        Usuario guardado = usuarioRepo.findById("456").orElse(null);
+        Usuario guardado = usuarioRepo.findById("123").orElse(null);
 
-        guardado.setEmail("nuevoEmail@email");
-        //guardo el usuario
+        guardado.setEmail("meLlevalaVerdura@email");
+
         usuarioRepo.save(guardado);
 
-        Usuario usuariobuscado= usuarioRepo.findById("456").orElse(null);
+        Usuario usuariobuscado= usuarioRepo.findById("123").orElse(null);
 
-        Assertions.assertEquals("nuevoEmail@email", usuariobuscado.getEmail());
+        Assertions.assertEquals("meLlevalaVerdura@email", usuariobuscado.getEmail());
 
     }
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public  void listarTest(){//Se listan las entidades creadas en pruebas.sql
+    public  void listarTest(){
 
         List<Usuario> usuarios= usuarioRepo.findAll();
 
