@@ -4,23 +4,24 @@ insert into ciudad values (3, "Quimbaya");
 
 insert into usuario values ("123", "hola123", "nikorodri@gmail.com", "Nicolas", 1);
 insert into usuario values ("456", "hellou123", "camcam@gmail.com", "Camilo", 2);
-insert into usuario values ("789", "salut123", "Serch@gmail.com", "Santiago", 3);
+insert into usuario values ("789", "salut123", "Serch@gmail.com", "Santiago", 1);
 
 insert into administrador values ("7878","x1234","@123","Sara");
 insert into administrador values ("4545", "y456","@456","Alexander");
 insert into administrador values ("3535", "z789","@789","Niko");
 
 insert into producto values ("111", "Lleno de potacio", 0.2, "2021/10/19", "Banano", 750.0, 10, 2, "123");
-insert into producto values ("222", "Lleno de fibra", 0.3, "2021/10/20", "Carne", 5000.0, 5000, 1, "456");
-insert into producto values ("333", "Lleno de hierro", 0.4, "2025/10/30", "Cereal", 8000.0, 5, 3, "789");
+insert into producto values ("222", "Lleno de fibra", 0.3, "2021/10/30", "Carne", 5000.0, 5000, 1, "456");
+insert into producto values ("333", "Lleno de hierro", 0.4, "2025/10/30", "Cereal", 8000.0, 5, 3, "456");
 
 insert into producto_imagen values ("111", "http:/imagen.png", "banano");
 insert into producto_imagen values ("222", "http:/imagen.png", "casa");
 insert into producto_imagen values ("333", "http:/imagen99.png", "yogurt");
 
-insert into comentario values ("a1", 5, "2021/10/19", "Hola, me ha interesado mucho tu producto", "gracias", "111", "123");
-insert into comentario values ("a2", 5, "2021/10/19", "Hola, me ha interesado mucho tu producto", "gracias", "222", "123");
-insert into comentario values ("a3", 5, "2021/10/19", "Hola, me ha interesado mucho tu producto", "gracias", "333", "123");
+insert into comentario values ("a1", 3.0, "2021/10/19", "Hola, me ha interesado mucho tu producto", "gracias", "111", "789");
+insert into comentario values ("a2", 2.0, "2021/10/19", "Hola, me ha interesado demasiado tu producto", "gracias", "333", "456");
+insert into comentario values ("a3", 5.0, "2021/10/19", "Hola, me ha interesado mucho tu producto", "gracias", "333", "123");
+insert into comentario values ("a4", 5.0, "2021/10/22", "Hola, quiero reembolso,Ya!", "", "333", "123");
 
 insert into categoria   values (1,"Tecnologia");
 insert into categoria   values (2,"Deporte");
@@ -37,6 +38,7 @@ insert into detalle_compra  values ("432", 8000.0, 7,3, "333");
 insert into usuario_telefonos values ("123", "3114012221","trabajo");
 insert into usuario_telefonos values ("456", "3114012222","casa");
 insert into usuario_telefonos values ("789", "3114012223","casa");
+
 
 insert into chat values ("100", "123");
 insert into chat values ("200", "456");

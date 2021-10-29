@@ -64,4 +64,11 @@ public class ComentarioTest {
         comentarios.forEach(comentario -> System.out.println(comentario));
     }
 
+    @Test
+    @Sql("classpath:pruebas.sql")
+    public  void listarComentariosRangoTest(){
+        List<Comentario> lista= comentarioRepo.listarComentariosRango2(1.0 , 4.0);
+        System.out.println(lista);
+    }
+
 }

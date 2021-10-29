@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class Producto implements Serializable {
     private double precio;
 
     @Column(nullable = false)
-    private LocalDate fechaLimite;
+    private LocalDateTime fechaLimite;
 
     @Column(nullable = false)
     private double descuento;
@@ -70,7 +71,7 @@ public class Producto implements Serializable {
     @ToString.Exclude
     private List<Comentario> comentarios;
 
-    public Producto(String codigo, String nombre, int unidades, String descripcion, double precio, LocalDate fechaLimite, double descuento, Usuario usuario, Ciudad ciudad) {
+    public Producto(String codigo, String nombre, int unidades, String descripcion, double precio, LocalDateTime fechaLimite, double descuento, Usuario usuario, Ciudad ciudad) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.unidades = unidades;
@@ -81,4 +82,5 @@ public class Producto implements Serializable {
         this.usuario = usuario;
         this.ciudad = ciudad;
     }
+
 }
