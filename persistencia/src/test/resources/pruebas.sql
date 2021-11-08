@@ -39,10 +39,13 @@ insert into usuario_telefonos values ("123", "3114012221","trabajo");
 insert into usuario_telefonos values ("456", "3114012222","casa");
 insert into usuario_telefonos values ("789", "3114012223","casa");
 
+insert into producto_categorias values ("111",1);
+insert into producto_categorias values ("333",1);
+insert into producto_categorias values ("222",2);
 
-insert into chat values ("100", "123");
-insert into chat values ("200", "456");
-insert into chat values ("300", "789");
+insert into chat values ("100", "456","111");
+insert into chat values ("200", "456","222");
+insert into chat values ("300", "789","111");
 
 insert into mensaje values ("999", "niko", "2020/10/09", "...", "100");
 insert into mensaje values ("787", "sergio", "2020/11/09", "...", "200");
@@ -55,3 +58,4 @@ insert into subasta values ("6", "2021/11/12", "333");
 insert into subasta_usuario values ("1", "2021/09/20", 50000.00, "4", "123");
 insert into subasta_usuario values ("2", "2021/07/29", 60000.00, "5", "456");
 insert into subasta_usuario values ("3", "2021/08/13", 80000.00, "6", "789");
+

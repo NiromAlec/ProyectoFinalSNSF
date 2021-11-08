@@ -1,7 +1,7 @@
 package co.edu.uniquindio.proyecto.test;
 
 
-import co.edu.uniquindio.proyecto.entidades.Administrador;
+
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Subasta;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
@@ -67,6 +67,14 @@ public class SubastaTest {
         List<Subasta> subastas= subastaRepo.findAll();
         subastas.forEach(subasta -> System.out.println(subasta));
     }
-
+/*
+    @Test
+    @Sql("classpath:pruebas.sql")
+    public void obtenerSubastaCategoria(){
+        List<Subasta> subastas=sRepo.ObtenerSubasta(1);
+        //Assertions.assertEquals(2,subastas.size());
+        subastas.forEach(System.out::println);
+    }
+*/
 
 }

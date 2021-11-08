@@ -2,8 +2,10 @@ package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Administrador;
 import co.edu.uniquindio.proyecto.entidades.Chat;
+import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.ChatRepo;
+import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,13 +24,16 @@ public class ChatTest {
     private ChatRepo chatRepo;
     @Autowired
     private UsuarioRepo usuarioRepo;
+    @Autowired
+    private ProductoRepo productoRepo;
 
     @Test
     @Sql("classpath:pruebas.sql")
     public void registrarTest(){
 
         Usuario usuario = usuarioRepo.findById("123").orElse(null);
-        Chat chat=new Chat("400",usuario );
+        Producto producto = productoRepo.findById("111").orElse(null);
+        Chat chat=new Chat("400",usuario,producto );
         Chat chatGuardado= chatRepo.save(chat);
         System.out.println(chatGuardado);
         Assertions.assertNotNull(chatGuardado);

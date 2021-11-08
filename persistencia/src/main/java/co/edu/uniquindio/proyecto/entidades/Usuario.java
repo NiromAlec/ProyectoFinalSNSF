@@ -20,14 +20,17 @@ import java.util.Map;
 public class Usuario extends Persona implements Serializable {
 
     @ElementCollection
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private Map <String, String> telefonos;
-
+   /*
+    @Column(nullable = false, unique = true)
+    private String username;
+*/
     @OneToMany(mappedBy = "usuario")
     @ToString.Exclude
     private List<Chat> chats;
 
-    @JoinColumn(nullable = false)
+    //@JoinColumn(nullable = false)
     @ManyToOne
     private Ciudad ciudad;
 

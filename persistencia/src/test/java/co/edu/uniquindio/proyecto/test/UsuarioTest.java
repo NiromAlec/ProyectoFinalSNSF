@@ -1,8 +1,6 @@
 package co.edu.uniquindio.proyecto.test;
 
-import co.edu.uniquindio.proyecto.entidades.Ciudad;
-import co.edu.uniquindio.proyecto.entidades.Producto;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.entidades.*;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,7 +142,7 @@ public class UsuarioTest {
 
     @Test
     @Sql("classpath:pruebas.sql")
-    public void listarUsuuariosProductosTest(){
+    public void listarUsuariosProductosTest(){
 
          List<Object[]> respuesta= usuarioRepo.listarUsuariosyProductos();
         //respuesta.forEach(System.out::println);
@@ -153,6 +152,39 @@ public class UsuarioTest {
         }
 
     }
+
+    @Test
+    @Sql("classpath:pruebas.sql")
+    public  void obtenerChatVendedor(){
+        List<Chat> chat=usuarioRepo.ObtenerChatUsuario("123");
+        chat.forEach(System.out::println);
+        //Assertions.assertEquals(2,chat.size());
+    }
+
+
+    @Test
+    @Sql("classpath:pruebas.sql")
+    public  void obtenerCantidadSubastaCategoria(){
+        List<Object[]> info=usuarioRepo.ObtenerSubastaXCategoria();
+        info.forEach(objeto -> System.out.println(objeto[0]+"----"+objeto[1]));
+        //Assertions.assertEquals(2,chat.size());
+    }
+
+    @Test
+    @Sql("classpath:pruebas.sql")
+    public void obtenerSubastaCategoria(){
+        List<Subasta> subastas=usuarioRepo.ObtenerSubasta(1);
+        subastas.forEach(System.out::println );
+    }
+
+    @Test
+    @Sql("classpath:pruebas.sql")
+    public void obtenerCantidadMedioPago(){
+        List<Object[]> info=usuarioRepo.ObtenerCantidadMedioPago();
+        info.forEach(objeto -> System.out.println(objeto[0]+"----"+objeto[1]));
+    }
+
+
 
 
 
