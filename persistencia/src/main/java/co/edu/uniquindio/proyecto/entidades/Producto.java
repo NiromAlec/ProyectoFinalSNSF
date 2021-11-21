@@ -3,6 +3,10 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,18 +27,23 @@ public class Producto implements Serializable {
     @EqualsAndHashCode.Include
     private String codigo;
 
+    @NotBlank(message = "El nombre del producto es obligatorio")
     @Column(nullable = false)
     private String nombre;
 
+    @PositiveOrZero
     @Column(nullable = false)
     private int unidades;
 
+    @NotBlank(message = "La descripcion del producto es obligatorio")
     @Column(nullable = false)
     private String descripcion;
 
+    @Positive
     @Column(nullable = false)
     private double precio;
 
+    @Future
     @Column(nullable = false)
     private LocalDateTime fechaLimite;
 
@@ -48,7 +57,7 @@ public class Producto implements Serializable {
     @ManyToMany(mappedBy = "favoritos")
     private List<Usuario> anadioFavorito;
 
-    @JoinColumn(nullable = false)
+    //@JoinColumn(nullable = false)
     @ManyToOne
     private Ciudad ciudad;
 

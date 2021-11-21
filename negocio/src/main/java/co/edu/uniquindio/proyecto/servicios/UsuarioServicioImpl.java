@@ -91,4 +91,10 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         }
         return buscado.get();
     }
+
+    @Override
+    public Usuario iniciarSesion(String email, String password) throws Exception {
+        return usuarioRepo.findByEmailAndContrasena(email,password).orElseThrow( () -> new Exception("los datos de autenticacion son incorrectos"));
+
+    }
 }

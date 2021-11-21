@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +15,10 @@ public interface UsuarioRepo extends JpaRepository <Usuario, String>{
 
     List<Usuario> findAllByNombreContains(String nombre);
     Optional<Usuario> findAllByEmail(String email);
+
+    Optional<Usuario> findByEmailAndContrasena(String email, String contrasena);
     Page<Usuario> findAll(Pageable paginador);
+
 
     @Query("select p from Usuario u, IN (u.favoritos) p where u.email = :email")
     List<Producto> obtenerProductoFavoritos(String email);
@@ -40,4 +42,6 @@ public interface UsuarioRepo extends JpaRepository <Usuario, String>{
     //PUNTO 3 OBTENER CANTIDAD DE COMPRAS POR MEDIO DE PAGO
     @Query("select c.medioPago,count(c) from Compra c group by c.medioPago")
     List<Object[]> ObtenerCantidadMedioPago();
+
+
 }

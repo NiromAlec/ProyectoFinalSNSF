@@ -12,10 +12,12 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductoRepo extends JpaRepository<Producto, String> {
 
         Page<Producto> findAll(Pageable paginador);
+        Optional<Producto> findByCodigo(String codigo);
 
         @Query("select p.usuario.nombre from Producto p where p.codigo= :id")
         String ObtenerNombreVendedor(String id);
@@ -40,5 +42,6 @@ public interface ProductoRepo extends JpaRepository<Producto, String> {
         //MEDIANTE DTO
         @Query("select new co.edu.uniquindio.proyecto.dto.ProductoValido(p.nombre, p.descripcion, p.precio, p.ciudad) from Producto p where :fechaActual < p.fechaLimite ")
         List<ProductoValido> listarProductosValidos2(LocalDateTime fechaActual);
+
 
 }

@@ -12,14 +12,14 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @SpringBootTest(classes = NegocioApplication.class)
-@Transactional
+//@Transactional
 public class UsuarioServicioTest {
         @Autowired
         private UsuarioServicio usuarioServicio;
 
         @Test
         public void registrarTest(){
-            Usuario u= new Usuario ("741", "Thomas", "tomas1@email", "tom0201", null, null);
+            Usuario u= new Usuario ("6969", "Santy", "santy@email", "santy0201", null, null);
                 try {
                         Usuario respuesta = usuarioServicio.registrarUsario(u);
                         Assertions.assertNotNull(respuesta);
@@ -33,7 +33,7 @@ public class UsuarioServicioTest {
         public void eliminar(){
 
             try {
-                usuarioServicio.eliminarUsuario("741");
+                usuarioServicio.eliminarUsuario("748");
                 Assertions.assertTrue(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -58,6 +58,16 @@ public class UsuarioServicioTest {
             Assertions.assertEquals("789ko",modificado.getContrasena());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void loginTest(){
+        try {
+            Usuario usuario=usuarioServicio.iniciarSesion("tomas @email","tom0201");
+            Assertions.assertNotNull(usuario);
+        } catch (Exception e) {
+            Assertions.assertTrue(false, e.getMessage());
         }
     }
 
