@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @SpringBootTest(classes = NegocioApplication.class)
-//@Transactional
+@Transactional
 public class UsuarioServicioTest {
         @Autowired
         private UsuarioServicio usuarioServicio;
@@ -33,7 +33,7 @@ public class UsuarioServicioTest {
         public void eliminar(){
 
             try {
-                usuarioServicio.eliminarUsuario("748");
+                usuarioServicio.eliminarUsuario("6969");
                 Assertions.assertTrue(true);
             } catch (Exception e) {
                 e.printStackTrace();

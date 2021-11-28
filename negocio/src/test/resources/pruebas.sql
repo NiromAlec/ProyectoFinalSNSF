@@ -10,9 +10,9 @@ insert into administrador values ("7878","x1234","@123","Sara");
 insert into administrador values ("4545", "y456","@456","Alexander");
 insert into administrador values ("3535", "z789","@789","Niko");
 
-insert into producto values ("111", "Lleno de potacio", 0.2, "2021/10/19", "Banano", 750.0, 10, 2, "123");
-insert into producto values ("222", "Lleno de fibra", 0.3, "2021/10/30", "Carne", 5000.0, 5000, 1, "456");
-insert into producto values ("333", "Lleno de hierro", 0.4, "2025/10/30", "Cereal", 8000.0, 5, 3, "456");
+insert into producto values ("111", "Lleno de potacio", 0.2, "2022/10/19", "Banano", 750.0, 10, 2, "123");
+insert into producto values ("222", "Lleno de fibra", 0.3, "2022/10/30", "Carne", 5000.0, 5000, 1, "456");
+insert into producto values ("333", "Lleno de hierro", 0.4, "2025/10/30", "Cereal", 8000.0, 5000, 3, "456");
 
 insert into producto_imagen values ("111", "http:/imagen.png", "banano");
 insert into producto_imagen values ("222", "http:/imagen.png", "casa");
@@ -39,8 +39,8 @@ insert into usuario_telefonos values ("123", "3114012221","trabajo");
 insert into usuario_telefonos values ("456", "3114012222","casa");
 insert into usuario_telefonos values ("789", "3114012223","casa");
 
-insert into producto_categorias values ("111",1);
-insert into producto_categorias values ("333",1);
+insert into producto_categorias values ("111",3);
+insert into producto_categorias values ("333",3);
 insert into producto_categorias values ("222",2);
 
 insert into chat values ("100","111","456");

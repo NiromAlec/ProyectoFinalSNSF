@@ -113,4 +113,12 @@ public class ProductoTest {
     productos.forEach(System.out::println);
     // Assertions.assertEquals(2,usuarios.size());
 }
+    @Test
+    @Sql("classpath:pruebas.sql")
+    public void listarProuctosValidosDisponiblesTest(){
+        List<ProductoValido> productos= productoRepo.listarProductosDisponibles(5,LocalDateTime.now());
+        productos.forEach(System.out::println);
+    }
+
+
 }

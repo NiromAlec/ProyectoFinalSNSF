@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.repositorios;
 
 import co.edu.uniquindio.proyecto.dto.ProductoValido;
+import co.edu.uniquindio.proyecto.entidades.Categoria;
 import co.edu.uniquindio.proyecto.entidades.Comentario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
@@ -40,8 +41,14 @@ public interface ProductoRepo extends JpaRepository<Producto, String> {
         @Query("select p.nombre, p.descripcion, p.precio, p.ciudad.nombre from Producto p where :fechaActual < p.fechaLimite ")
         List<Object[]> listarProductosValidos(LocalDateTime fechaActual);
         //MEDIANTE DTO
-        @Query("select new co.edu.uniquindio.proyecto.dto.ProductoValido(p.nombre, p.descripcion, p.precio, p.ciudad) from Producto p where :fechaActual < p.fechaLimite ")
+        @Query("select new co.edu.uniquindio.proyecto.dto.ProductoValido(p.nombre, p.descripcion, p.precio, p.ciudad) from Producto p  where :fechaActual < p.fechaLimite ")
         List<ProductoValido> listarProductosValidos2(LocalDateTime fechaActual);
+
+        @Query("select new co.edu.uniquindio.proyecto.dto.ProductoValido(p.nombre, p.descripcion, p.precio, p.ciudad) from Producto p join p.categorias c where ( p.unidades > 0 and :fechaActual < p.fechaLimite) and  :codigo = c.codigo")
+        List<ProductoValido> listarProductosDisponibles(Integer codigo, LocalDateTime fechaActual);
+
+
+
 
 
 }

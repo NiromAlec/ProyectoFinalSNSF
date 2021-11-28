@@ -1,6 +1,10 @@
 package co.edu.uniquindio.proyecto.servicios;
 
+import co.edu.uniquindio.proyecto.dto.ProductoValido;
 import co.edu.uniquindio.proyecto.entidades.*;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface ProductoServicio {
@@ -13,9 +17,11 @@ public interface ProductoServicio {
 
     Producto obtenerProducto(String codigo) throws Exception;
 
+    List<ProductoValido> listarProductosPorCategoria(Integer codigo, LocalDateTime fecha);
+
     List<Producto> listarProductos(Categoria categoria);
 
-    void comentarProducto(String mensaje, double calificacion, Usuario u, Producto p)throws  Exception;
+    void comentarProducto(Comentario c)throws  Exception;
 
     void guardarProductoFav(Producto p, Usuario u) throws Exception;
 

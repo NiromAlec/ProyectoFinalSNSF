@@ -1,13 +1,13 @@
 package co.edu.uniquindio.proyecto.servicios;
 
-import co.edu.uniquindio.proyecto.entidades.Categoria;
-import co.edu.uniquindio.proyecto.entidades.Compra;
-import co.edu.uniquindio.proyecto.entidades.Producto;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
+
+import co.edu.uniquindio.proyecto.dto.ProductoValido;
+import co.edu.uniquindio.proyecto.entidades.*;
+import co.edu.uniquindio.proyecto.repositorios.ComentarioRepo;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +15,11 @@ import java.util.Optional;
 public class ProductoServicioImpl implements ProductoServicio {
 
     private final ProductoRepo productoRepo;
+    private final ComentarioRepo comentarioRepo;
 
-    public ProductoServicioImpl(ProductoRepo productoRepo) {
+    public ProductoServicioImpl(ProductoRepo productoRepo, ComentarioRepo comentarioRepo) {
         this.productoRepo = productoRepo;
+        this.comentarioRepo = comentarioRepo;
     }
 
     @Override
@@ -53,22 +55,66 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
+    public List<ProductoValido> listarProductosPorCategoria(Integer codigo, LocalDateTime  fecha) {
+
+        List<ProductoValido> productosV= productoRepo.listarProductosDisponibles(codigo, fecha);
+        return productosV;
+        //productos.forEach(System.out::println);
+    }
+
+    @Override
     public List<Producto> listarProductos(Categoria categoria) {
         return null;
     }
 
     @Override
-    public void comentarProducto(String mensaje, double calificacion, Usuario u, Producto p) throws Exception {
+    public void comentarProducto(Comentario c) throws Exception {
 
+        try {
+            comentarioRepo.save(c);
+        }catch (Exception e)
+        {
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
     public void guardarProductoFav(Producto p, Usuario u) throws Exception {
 
+        try {
+            List<Producto> lista= u.getFavoritos();
+
+            if(lista != null) {
+                for (Producto pl : lista) {
+                    if (pl.getCodigo().equals(p.getCodigo())) {
+                        throw new Exception("Este producto ya ha sido anadido a la lista de favoritos");
+                    }
+                }
+            }else {
+               u.getFavoritos().add(p);
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+
     }
 
     @Override
     public void eliminarProductoFav(Producto p, Usuario u) throws Exception {
+        try {
+            u.getFavoritos().add(p);
+            List<Producto> lista= u.getFavoritos();
+            for(Producto pl : lista){
+                if(pl.getCodigo().equals(p.getCodigo())){
+                    u.getFavoritos().remove(p);
+                }
+            }
+
+        }catch (Exception e){
+
+            throw new Exception("El producto no existe en Favoritos");
+        }
 
     }
 

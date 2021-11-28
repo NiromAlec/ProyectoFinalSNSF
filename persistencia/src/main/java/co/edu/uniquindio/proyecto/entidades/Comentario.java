@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
+//@AllArgsConstructor
 @ToString
 
 public class Comentario implements Serializable {
@@ -38,4 +38,14 @@ public class Comentario implements Serializable {
     @JoinColumn(nullable = false)
     @ManyToOne
     private Producto producto;
+
+    public Comentario(String codigo, String mensajeComentario, String respuesta, LocalDate fechaComentario, double calificacion, Usuario usuario, Producto producto) {
+        this.codigo = codigo;
+        this.mensajeComentario = mensajeComentario;
+        this.respuesta = respuesta;
+        this.fechaComentario = fechaComentario;
+        this.calificacion = calificacion;
+        this.usuario = usuario;
+        this.producto = producto;
+    }
 }
