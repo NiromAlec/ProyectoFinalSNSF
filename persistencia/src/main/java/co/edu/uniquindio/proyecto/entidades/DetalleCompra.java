@@ -16,9 +16,9 @@ import java.io.Serializable;
 
 public class DetalleCompra implements Serializable {
     @Id
-    @Column(nullable = false,length = 10)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private String codigo;
+    private Integer codigo;
 
     @Positive
     @Column(nullable = false)
@@ -36,8 +36,7 @@ public class DetalleCompra implements Serializable {
     @ManyToOne
     private Compra compra;
 
-    public DetalleCompra(String codigo, Integer unidades, Double precioProducto, Producto producto, Compra compra) {
-        this.codigo = codigo;
+    public DetalleCompra(Integer unidades, Double precioProducto, Producto producto, Compra compra) {
         this.unidades = unidades;
         this.precioProducto = precioProducto;
         this.producto = producto;

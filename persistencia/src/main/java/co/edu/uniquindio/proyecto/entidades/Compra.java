@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -14,9 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-/**
- * Clase compra, restricciones para atributos y uso de lombok
- */
 public class Compra implements Serializable {
 
     @Id
@@ -25,7 +23,7 @@ public class Compra implements Serializable {
     private Integer codigo;
 
     @Column(nullable = false)
-    private LocalDate fechaCompra;
+    private LocalDateTime fechaCompra;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -39,8 +37,8 @@ public class Compra implements Serializable {
     @ToString.Exclude
     private List<DetalleCompra> detallesCompras;
 
-    public Compra(Integer codigo, LocalDate fechaCompra, MedioPago medioPago, Usuario usuario) {
-        this.codigo = codigo;
+    public Compra(LocalDateTime fechaCompra, MedioPago medioPago, Usuario usuario) {
+        //this.codigo = codigo;
         this.fechaCompra=fechaCompra;
         this.medioPago=medioPago;
         this.usuario=usuario;

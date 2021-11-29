@@ -16,6 +16,7 @@ public interface UsuarioRepo extends JpaRepository <Usuario, String>{
 
     List<Usuario> findAllByNombreContains(String nombre);
     Optional<Usuario> findAllByEmail(String email);
+    Optional<Usuario> findByEmailAndContrasena(String email, String contrasena);
     Page<Usuario> findAll(Pageable paginador);
 
     @Query("select p from Usuario u, IN (u.favoritos) p where u.email = :email")

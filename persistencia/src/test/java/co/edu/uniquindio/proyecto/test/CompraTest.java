@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -31,7 +32,7 @@ public class CompraTest {
     @Sql("classpath:pruebas.sql")
     public void registrarTest(){
         Usuario usuario=usuarioRepo.findById("123").orElse(null);
-        Compra compra = new Compra(10, LocalDate.now(), MedioPago.CREDITO, usuario);
+        Compra compra = new Compra(LocalDateTime.now(), MedioPago.CREDITO, usuario);
 
         Compra compraGuardado= compraRepo.save(compra);
         System.out.println(compraGuardado);

@@ -91,4 +91,18 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         }
         return buscado.get();
     }
+
+    @Override
+    public Usuario iniciarSesion(String email, String password) throws Exception {
+        return usuarioRepo.findByEmailAndContrasena(email,password).orElseThrow( () -> new Exception("Los datos de autenticacion son incorrectos"));
+    }
+
+    @Override
+    public String recuperarConstrasena(String email) throws Exception {
+        Optional<Usuario> buscado= usuarioRepo.findAllByEmail(email);
+        if(buscado.isEmpty()){
+            throw new Exception("El usuario No Existe");
+        }
+        return buscado.get().getContrasena();
+    }
 }
