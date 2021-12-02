@@ -10,22 +10,11 @@
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Title</title>
+    <title>Resultados de busqueda</title>
 </h:head>
 <h:body>
-    <h:form>
-        <h:panelGrid columns="2" cellpadding="5" >
 
-            <p:outputLabel for="atr1" value="Atributo 1:" />
-            <p:inputText  id="atr1" value="#{ejemploBean.atributo1}" required="true"/>
-
-            <p:outputLabel for="atr2" value="Atributo 2:" />
-            <p:inputText id="atr2" value="#{ejemploBean.atributo2}" required="true"/>
-
-        </h:panelGrid>
-        <p:commandButton value="Cambiar valores" action="#{ejemploBean.cambiar}" update="@form" />
-
-    </h:form>
+    <p>#{busquedaBean.productos}</p>
 
 </h:body>
 </html>

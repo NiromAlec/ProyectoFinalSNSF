@@ -70,7 +70,7 @@ public class Producto implements Serializable {
 
     @ElementCollection
     @Column(nullable = false)
-    private Map<String, String> imagen;
+    private List<String> imagen;
 
     @OneToMany(mappedBy = "producto")
     @ToString.Exclude
@@ -80,7 +80,11 @@ public class Producto implements Serializable {
     @ToString.Exclude
     private List<Comentario> comentarios;
 
-    public Producto(String codigo, String nombre, int unidades, String descripcion, double precio, LocalDateTime fechaLimite, double descuento, Usuario usuario, Ciudad ciudad) {
+    @NotBlank(message = "El nombre de la publicacion es obligatorio")
+    @Column(nullable = false)
+    private String nombre_publicacion;
+
+    public Producto(String codigo, String nombre, int unidades, String descripcion, double precio, LocalDateTime fechaLimite, double descuento, Usuario usuario, Ciudad ciudad, String nombre_publicacion) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.unidades = unidades;
@@ -90,6 +94,7 @@ public class Producto implements Serializable {
         this.descuento = descuento;
         this.usuario = usuario;
         this.ciudad = ciudad;
+        this.nombre_publicacion=nombre_publicacion;
     }
 
 

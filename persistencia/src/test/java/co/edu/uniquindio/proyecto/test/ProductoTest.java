@@ -33,7 +33,7 @@ public class ProductoTest {
 
         Ciudad ciudad = ciudadRepo.findById(1).orElse(null);
         Usuario usuario = usuarioRepo.findById("789").orElse(null);
-        Producto producto= new Producto("444", "arequipe", 10, "arequipe de queso",5000.0,LocalDateTime.now(), 0.5,  usuario,ciudad);
+        Producto producto= new Producto("444", "arequipe", 10, "arequipe de queso",5000.0,LocalDateTime.now(), 0.5,  usuario,ciudad,"Promocion");
 
         Producto productoGuardado= productoRepo.save(producto);
         System.out.println(productoGuardado);
@@ -44,7 +44,7 @@ public class ProductoTest {
     @Sql("classpath:pruebas.sql")
     public void eliminarTest(){
 
-        productoRepo.deleteById("222");
+        productoRepo.deleteById(String.valueOf(222));
 
         Producto productoBuscado= productoRepo.findById("222").orElse(null);
 

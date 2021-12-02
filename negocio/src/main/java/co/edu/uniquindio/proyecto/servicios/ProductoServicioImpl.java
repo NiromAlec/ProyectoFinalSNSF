@@ -39,11 +39,12 @@ public class ProductoServicioImpl implements ProductoServicio {
     @Override
     public void eliminarProducto(String codigo) throws Exception {
 
-        Optional<Producto> producto= productoRepo.findByCodigo(codigo);
+        Optional<Producto> producto= productoRepo.findById(codigo);
 
         if(producto.isEmpty()){
             throw new Exception("El codigo del producto no existe");
         }
+
 
         productoRepo.deleteById(codigo);
 
@@ -125,7 +126,7 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     @Override
     public List<Producto> buscarProducto(String nombreProducto, String[] filtros) {
-        return null;
+        return productoRepo.buscarProductoNombre(nombreProducto);
     }
 
     @Override

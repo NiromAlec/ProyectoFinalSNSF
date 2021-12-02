@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Crear Nuevo Producto</title>
+</h:head>
+<h:body>
+    <p:panel header="Registrar Producto">
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="5">
+                <p:outputLabel value="Código:" for="codigo_P"/>
+                <p:inputText id="codigo_P" value="#{productoBean.producto.codigo}" required="true"/>
+
+                <p:outputLabel value="Nombre de Publicación:" for="nombre_Pub"/>
+                <p:inputText id="nombre_Pub" value="#{productoBean.producto.nombre_publicacion}" required="true"/>
+
+                <p:outputLabel value="Nombre:" for="nombre_P"/>
+                <p:inputText id="nombre_P" value="#{productoBean.producto.nombre}" required="true"/>
+
+                <p:outputLabel value="Precio:" for="precio_P"/>
+                <p:inputText id="precio_P" value="#{productoBean.producto.precio}" required="true" />
+
+                <p:outputLabel value="Unidades:" for="unidades_P"/>
+                <p:inputText id="unidades_P" value="#{productoBean.producto.unidades}" required="true" type="number"/>
+
+                <p:outputLabel value="Descuento:" for="desc_P"/>
+                <p:inputText id="desc_P" value="#{productoBean.producto.descuento}" required="true"/>
+
+                <p:outputLabel value="Fecha Limite:" for="fecha_P" />
+                <p:datePicker id="fecha_P" value="#{productoBean.producto.fechaLimite}" required="true" />
+
+                <p:outputLabel value="Imágenes:" for="imagen_P"/>
+                <p:fileUpload id="imagen_P"
+                              listener="#{productoBean.subirImagenes}" mode="advanced"
+                              multiple="true" sizeLimit="1000000" fileLimit="5"
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/" required="true"/>
+
+                <p:outputLabel value="Descripcion:" for="descrip_P"/>
+                <p:textEditor id="descrip_P"  value="#{productoBean.producto.descripcion}" height="300" secure="false" />
+
+
+            </h:panelGrid>
+
+            <p:growl showDetail="true"/>
+            <p:commandButton value="Crear Producto" action="#{productoBean.crearProducto}" update="@form" icon="pi pi-plus" />
+
+
+        </h:form>
+    </p:panel>
+</h:body>
+</html>

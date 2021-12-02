@@ -18,7 +18,7 @@ import java.util.Optional;
 public interface ProductoRepo extends JpaRepository<Producto, String> {
 
         Page<Producto> findAll(Pageable paginador);
-        Optional<Producto> findByCodigo(String codigo);
+        Optional<Producto> findByCodigo(Integer codigo);
 
         @Query("select p.usuario.nombre from Producto p where p.codigo= :id")
         String ObtenerNombreVendedor(String id);
@@ -47,8 +47,18 @@ public interface ProductoRepo extends JpaRepository<Producto, String> {
         @Query("select new co.edu.uniquindio.proyecto.dto.ProductoValido(p.nombre, p.descripcion, p.precio, p.ciudad) from Producto p join p.categorias c where ( p.unidades > 0 and :fechaActual < p.fechaLimite) and  :codigo = c.codigo")
         List<ProductoValido> listarProductosDisponibles(Integer codigo, LocalDateTime fechaActual);
 
+        @Query("select p from Producto p where p.comentarios is empty ")
+        List<Producto> obtenerProductosSinComentarios();
 
+        List<Producto> findByNombreContains(String nombre);
 
+        @Query("select p from Producto p where p.nombre like concat('%', :nombre, '%') ")
+        List<Producto> buscarProductoNombre(String nombre);
 
+        @Query("select c, count(p) as total from Producto  p join  p.categorias c group by c order by total desc " )
+        List<Object[]> obtenerCategoriaMasUsada();
+
+        @Query("select avg(c.calificacion) from Producto p join p.comentarios c where p.codigo= :codigo")
+        Float obtenerPromedioCalificaciones(String codigo);
 
 }
