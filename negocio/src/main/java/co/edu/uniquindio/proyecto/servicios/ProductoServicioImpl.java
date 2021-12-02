@@ -25,7 +25,7 @@ public class ProductoServicioImpl implements ProductoServicio{
         try{
             return productoRepo.save(p);
         }catch(Exception e){
-            throw new Exception((e.getMessage()));
+            throw new Exception("Hubo un error publicando el producto");
         }
 
     }
@@ -76,7 +76,8 @@ public class ProductoServicioImpl implements ProductoServicio{
 
     @Override
     public List<Producto> buscarProductos(String nombreProducto, String[] filtros) {
-        return null;
+
+        return productoRepo.buscarProductoNombre(nombreProducto);
     }
 
     @Override

@@ -10,9 +10,52 @@
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <h:outputScript library="js" name="bootstrap.bundle.min.js" />
     <title>La pagina de bienvenida</title>
 </h:head>
 <h:body>
-    <h1>#{inicioBean.mensaje}</h1>
+    <div id= "header">
+
+        <header class="p-3 bg-dark text-white">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <span class="pi pi-shopping-cart" style="font-size: 2.5rem;margin-right: 5px"/>
+                        <span class="fs-4" style="margin-right: 10px">Unishop</span>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li class="nav-item"><a href="index.xhtml" class="nav-link px-2 text-secondary active" aria-current="page">Inicio <i class="pi pi-home" style="font-size: 1rem"></i></a></li>
+                        <li class="nav-item"><a href="crearProducto.xhtml" class="nav-link px-2 text-white">Crear producto <i class="pi pi-plus" style="font-size: 1rem"></i></a></li>
+                    </ul>
+
+                    <h:form>
+                        <div class="col-12 col-lg-auto mb-3 mb-lg-0 input-search ui-inputgroup">
+                            <p:inputText style="width: 300px" type="search " placeholder="¿Qué producto está buscando?"
+                                         required="true" value="#{busquedaBean.busqueda}" />
+
+                            <p:commandButton update="@form" icon="pi pi-search" style="background-color: #ffc400; border-color: #ffc400; color: black; margin-right: 10px;"
+                                             action="#{busquedaBean.buscar}" />
+
+                        </div>
+                    </h:form>
+
+                    <div class="text-end">
+                        <h:form>
+                            <h:commandButton value="Iniciar sesion" class="btn btn-outline-light me-2"/>
+                            <h:commandButton value="Registrarse" class="btn btn-warning" style="background-color: #ffc400" action="registrarUsuario?faces-redirect=true"/>
+                        </h:form>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div id="content">
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </h:body>
 </html>

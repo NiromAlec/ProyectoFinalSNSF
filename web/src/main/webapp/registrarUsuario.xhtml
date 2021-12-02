@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Registrar usuario</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:outputLabel for="codigoU" value="Codigo:" />
+            <p:inputText id="codigoU" value="#{usuarioBean.usuario.codigo}" required="true" />
+            <p:outputLabel for="contrasenaU" value="Contraseña:" />
+            <p:password id="contrasenaU" value="#{usuarioBean.usuario.contrasena}" required="true" />
+            <p:outputLabel for="emailU" value="Email:" />
+            <p:inputText id="emailU" value="#{usuarioBean.usuario.email}" required="true" />
+            <p:outputLabel for="nombreU" value="Nombre:" />
+            <p:inputText id="nombreU" value="#{usuarioBean.usuario.nombre}" required="true" />
+        </h:panelGrid>
+        <p:growl showDetail="true" />
+        <p:commandButton action="#{usuarioBean.registrarUsuario}" value="Registrar usuario"
+                         update="@form" />
+    </h:form>
+</h:body>
+</html>

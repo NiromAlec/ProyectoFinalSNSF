@@ -10,6 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,8 +69,7 @@ public class Producto implements Serializable {
     private List<DetalleCompra> detallesCompras;
 
     @ElementCollection
-    @Column(nullable = false)
-    private Map<String, String> imagen;
+    private List<String> imagen;
 
     @OneToMany(mappedBy = "producto")
     @ToString.Exclude
@@ -90,7 +90,5 @@ public class Producto implements Serializable {
         this.usuario = usuario;
         this.ciudad = ciudad;
     }
-
-
 
 }
