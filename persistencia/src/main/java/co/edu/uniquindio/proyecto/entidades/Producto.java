@@ -91,4 +91,23 @@ public class Producto implements Serializable {
         this.ciudad = ciudad;
     }
 
+    public String getImagenPrincipal(){
+        if(imagen != null && !imagen.isEmpty()){
+            return imagen.get(0);
+        }
+        return "error.png";
+
+    }
+
+    public List<String> getCategoriasProducto(){
+        if(categorias!=null && !categorias.isEmpty()){
+            List<String> categoriasString= new ArrayList<>();
+            for(Categoria categoria : categorias)
+            {
+                categoriasString.add(categoria.getNombre());
+            }
+            return categoriasString;
+        }
+        return null;
+    }
 }

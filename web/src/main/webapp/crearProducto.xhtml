@@ -13,6 +13,7 @@
     <title>Crear un producto</title>
 </h:head>
 <h:body>
+    <p:panel header="Crear nuevo producto">
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
             <p:outputLabel for="codigoP" value="Codigo:" />
@@ -25,12 +26,19 @@
             <p:inputText id="unidadesP" value="#{productoBean.producto.unidades}" required="true" type="number"/>
             <p:outputLabel for="descripcionP" value="Descripcion:" />
             <p:textEditor id="descripcionP" value="#{productoBean.producto.descripcion}" required="true" secure="false" height="300" />
+            <p:outputLabel for="categoriaP" value="Categorias:" />
+            <p:selectManyMenu id="categoriaP" value="#{productoBean.producto.categorias}" showCheckbox="true" converter="#{categoriaConverter}">
+                <f:selectItems value="#{productoBean.categorias}" itemLabel="#{categoria.nombre}" var="categoria"/>
+            </p:selectManyMenu>
             <p:outputLabel for="imagenesP" value="Subir imagenes de su producto: "/>
             <p:fileUpload id="imagenesP" listener="#{productoBean.subirImagenes}" mode="advanced"
                           multiple="true" sizeLimit="1000000" fileLimit="5"
                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/" required="true" />
-            <p:outputLabel for="fechaLP" value="Fecha limite del producto:" />
-            <p:datePicker id="fechaLP" value="#{productoBean.producto.fechaLimite}" required="true"/>
+            <p:outputLabel for="ciudadP" value="Ciudad: " />
+            <p:selectOneMenu id="ciudadP" value="#{productoBean.producto.ciudad}" converter="#{ciudadConverter}">
+                <f:selectItem itemLabel="Seleccione una ciudad" noSelectionOption="true"/>
+                <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}" value="#{productoBean.ciudades}" />
+            </p:selectOneMenu>
             <p:outputLabel for="descuentoP" value="Descuento:" />
             <p:inputText id="descuentoP" value="#{productoBean.producto.descuento}" required="true" type="number"/>
 
@@ -39,5 +47,6 @@
         <p:commandButton action="#{productoBean.crearProducto}" value="Crear producto"
                          update="@form" icon="pi pi-plus"/>
     </h:form>
+    </p:panel>
 </h:body>
 </html>

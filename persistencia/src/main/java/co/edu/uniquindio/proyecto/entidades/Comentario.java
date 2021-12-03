@@ -3,7 +3,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -15,21 +15,19 @@ import java.time.LocalDate;
 
 public class Comentario implements Serializable {
     @Id
-    @Column(nullable = false,length = 10)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private String codigo;
+    private Integer codigo;
 
     @Column(nullable = false)
     private String mensajeComentario;
 
-    @Column(nullable = false)
     private String respuesta;
 
     @Column(nullable = false)
-    private LocalDate fechaComentario;
+    private LocalDateTime fechaComentario;
 
-    @Column(nullable = false)
-    private double calificacion;
+    private Integer calificacion;
 
     @JoinColumn(nullable = false)
     @ManyToOne

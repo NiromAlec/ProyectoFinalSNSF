@@ -1,7 +1,11 @@
 package co.edu.uniquindio.proyecto.bean;
 
+import co.edu.uniquindio.proyecto.entidades.Categoria;
+import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.servicios.CategoriaServicio;
+import co.edu.uniquindio.proyecto.servicios.CiudadServicio;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
@@ -21,8 +25,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
+
 
 
 @Component
@@ -36,8 +43,16 @@ public class ProductoBean implements Serializable {
     private ProductoServicio productoServicio;
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Autowired
+    private CategoriaServicio categoriaServicio;
+    @Autowired
+    private CiudadServicio ciudadServicio;
 
     private ArrayList<String> imagenes;
+    @Getter @Setter
+    private List<Categoria> categorias;
+    @Getter @Setter
+    private List<Ciudad> ciudades;
 
     @Value("${upload.url}")
     private String urlUploads;
@@ -46,6 +61,8 @@ public class ProductoBean implements Serializable {
     public void inicializar() {
         this.producto = new Producto();
         this.imagenes = new ArrayList<>();
+        categorias=categoriaServicio.listarCategorias();
+        ciudades= ciudadServicio.listarCiudades();
     }
 
     public void crearProducto() {
@@ -54,6 +71,7 @@ public class ProductoBean implements Serializable {
                 Usuario usuario = usuarioServicio.obtenerUnUsuario("123");
                 producto.setUsuario(usuario);
                 producto.setImagen(imagenes);
+                producto.setFechaLimite(LocalDateTime.now().plusMonths(1));
                 productoServicio.publicarProducto(producto);
                 FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta",
                         "Producto creado satisfacotiramente :D");

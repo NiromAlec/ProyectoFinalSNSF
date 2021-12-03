@@ -1,13 +1,13 @@
 package co.edu.uniquindio.proyecto.servicios;
 
-import co.edu.uniquindio.proyecto.entidades.Categoria;
-import co.edu.uniquindio.proyecto.entidades.Compra;
-import co.edu.uniquindio.proyecto.entidades.Producto;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.entidades.*;
+import co.edu.uniquindio.proyecto.repositorios.ComentarioRepo;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +15,11 @@ import java.util.Optional;
 public class ProductoServicioImpl implements ProductoServicio{
 
     private final ProductoRepo productoRepo;
+    private final ComentarioRepo comentarioRepo;
 
-    public ProductoServicioImpl(ProductoRepo produtoRepo) {
+    public ProductoServicioImpl(ProductoRepo produtoRepo, ComentarioRepo comentarioRepo) {
         this.productoRepo = produtoRepo;
+        this.comentarioRepo = comentarioRepo;
     }
 
     @Override
@@ -46,17 +48,23 @@ public class ProductoServicioImpl implements ProductoServicio{
 
     @Override
     public Producto obtenerProducto(String codigo) throws Exception {
-        return productoRepo.findById(codigo).orElseThrow(()-> new Exception("El codigo del prpducto no es valido"));
+        return productoRepo.findById(codigo).orElseThrow(()-> new Exception("El codigo del producto no es valido"));
     }
 
     @Override
-    public List<Producto> listarProductos(Categoria categoria) {
-        return null;
+    public List<Producto> listarProductosCategoria(Integer codigo) {
+        return productoRepo.listarProductosCategoria(codigo);
     }
 
     @Override
-    public void comentarProducto(String mensaje, Double calificacion, Usuario usuario, Producto producto) throws Exception {
+    public List<Producto> listarTodosLosProductos() {
+        return productoRepo.findAll();
+    }
 
+    @Override
+    public void comentarProducto(Comentario comentario) throws Exception {
+        comentario.setFechaComentario(LocalDateTime.now());
+        comentarioRepo.save(comentario);
     }
 
     @Override
@@ -84,4 +92,5 @@ public class ProductoServicioImpl implements ProductoServicio{
     public List<Producto> listarProductoUsuario(String codigoUsuario) throws Exception {
         return null;
     }
+
 }

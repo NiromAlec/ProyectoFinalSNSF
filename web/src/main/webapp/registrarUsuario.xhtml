@@ -13,20 +13,30 @@
     <title>Registrar usuario</title>
 </h:head>
 <h:body>
+    <p:panel header="Registrar Usuario">
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
+
             <p:outputLabel for="codigoU" value="Codigo:" />
             <p:inputText id="codigoU" value="#{usuarioBean.usuario.codigo}" required="true" />
+            <p:outputLabel for="nombreU" value="Nombre:" />
+            <p:inputText id="nombreU" value="#{usuarioBean.usuario.nombre}" required="true" />
             <p:outputLabel for="contrasenaU" value="Contraseña:" />
             <p:password id="contrasenaU" value="#{usuarioBean.usuario.contrasena}" required="true" />
             <p:outputLabel for="emailU" value="Email:" />
             <p:inputText id="emailU" value="#{usuarioBean.usuario.email}" required="true" />
-            <p:outputLabel for="nombreU" value="Nombre:" />
-            <p:inputText id="nombreU" value="#{usuarioBean.usuario.nombre}" required="true" />
+            <p:outputLabel for="ciudadU" value="Ciudad: " />
+            <p:selectOneMenu id="ciudadU" value="#{usuarioBean.usuario.ciudad}" converter="#{ciudadConverter}">
+                <f:selectItem itemLabel="Seleccione una ciudad" noSelectionOption="true"/>
+                <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}" value="#{usuarioBean.ciudades}" />
+            </p:selectOneMenu>
+
+
         </h:panelGrid>
         <p:growl showDetail="true" />
         <p:commandButton action="#{usuarioBean.registrarUsuario}" value="Registrar usuario"
                          update="@form" />
     </h:form>
+    </p:panel>
 </h:body>
 </html>
