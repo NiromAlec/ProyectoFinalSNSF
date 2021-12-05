@@ -32,7 +32,7 @@ public class ChatTest {
     public void registrarTest(){
 
         Usuario usuario = usuarioRepo.findById("123").orElse(null);
-        Producto producto = productoRepo.findById("111").orElse(null);
+        Producto producto = productoRepo.findById(111).orElse(null);
         Chat chat=new Chat("400",usuario,producto );
         Chat chatGuardado= chatRepo.save(chat);
         System.out.println(chatGuardado);

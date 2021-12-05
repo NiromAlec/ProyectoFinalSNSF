@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @SpringBootTest(classes = NegocioApplication.class)
-@Transactional
+//@Transactional
 public class UsuarioServicioTest {
     @Autowired
     private UsuarioServicio usuarioServicio;

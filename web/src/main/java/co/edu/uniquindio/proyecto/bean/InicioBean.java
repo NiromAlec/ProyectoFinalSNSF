@@ -24,6 +24,7 @@ public class InicioBean implements Serializable {
 
     @PostConstruct
     public void incializar(){
+       // this.productos= productoServicio.listarTodosLosProductosDisponibles();
         this.productos= productoServicio.listarTodosLosProductos();
 
     }

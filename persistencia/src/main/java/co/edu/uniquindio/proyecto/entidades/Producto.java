@@ -24,9 +24,9 @@ import java.util.Map;
 
 public class Producto implements Serializable {
     @Id
-    @Column(nullable = false,length = 10)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private String codigo;
+    private Integer codigo;
 
     @Column(nullable = false)
     @NotBlank
@@ -49,6 +49,7 @@ public class Producto implements Serializable {
     private LocalDateTime fechaLimite;
 
     @Column(nullable = false)
+    @PositiveOrZero
     private double descuento;
 
     @JoinColumn(nullable = false)
@@ -69,6 +70,7 @@ public class Producto implements Serializable {
     private List<DetalleCompra> detallesCompras;
 
     @ElementCollection
+    @ToString.Exclude
     private List<String> imagen;
 
     @OneToMany(mappedBy = "producto")
@@ -79,7 +81,7 @@ public class Producto implements Serializable {
     @ToString.Exclude
     private List<Comentario> comentarios;
 
-    public Producto(String codigo, String nombre, int unidades, String descripcion, double precio, LocalDateTime fechaLimite, double descuento, Usuario usuario, Ciudad ciudad) {
+    public Producto(Integer codigo, String nombre, int unidades, String descripcion, double precio, LocalDateTime fechaLimite, double descuento, Usuario usuario, Ciudad ciudad) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.unidades = unidades;
@@ -109,5 +111,13 @@ public class Producto implements Serializable {
             return categoriasString;
         }
         return null;
+    }
+
+    public int getCalificacionPromedio(){
+        int calificacion=0;
+        for (Comentario c: comentarios){
+            calificacion+=c.getCalificacion();
+        }
+        return 0;
     }
 }

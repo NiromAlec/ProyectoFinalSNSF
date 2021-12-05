@@ -13,13 +13,11 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true)
-/**
- * Clase Usuario, restricciones para atributos y uso de lombok
- * Extiende de Persona por ende llama tambien su ToString
- */
+
 public class Usuario extends Persona implements Serializable {
 
     @ElementCollection
+    @ToString.Exclude
     //@Column(nullable = false)
     private Map <String, String> telefonos;
    /*

@@ -3,8 +3,10 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -16,12 +18,13 @@ import java.util.List;
 
 public class Subasta implements Serializable {
     @Id
-    @Column(nullable = false,length = 10)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private String codigo;
+    private  Integer codigo;
 
     @Column(nullable = false)
-    private LocalDate fechaLimite;
+    @Future
+    private LocalDateTime fechaLimite;
 
     @JoinColumn(nullable = false)
     @ManyToOne
@@ -31,8 +34,8 @@ public class Subasta implements Serializable {
     @ToString.Exclude
     private List<SubastaUsuario> subastaUsuarios;
 
-    public Subasta(String codigo, LocalDate ffechaLimite, Producto producto ){
-        this.codigo=codigo;
+    public Subasta(LocalDateTime ffechaLimite, Producto producto ){
+
         this.fechaLimite=fechaLimite;
         this.producto=producto;
     }

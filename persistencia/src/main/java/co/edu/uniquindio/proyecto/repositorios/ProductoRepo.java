@@ -9,13 +9,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ProductoRepo extends JpaRepository<Producto, String> {
+public interface ProductoRepo extends JpaRepository<Producto, Integer> {
 
-        Page<Producto> findAll(Pageable paginador);
+
+       Page<Producto> findAll(Pageable paginador);
+
+       @Query("select avg(c.calificacion) from Comentario c join c.producto p where p.codigo= :codigo")
+       Integer calificacionPromedio(Integer codigo);
+
+       @Query("select p from Producto p where p.unidades > 0")
+       List<Producto> buscarProductosDisponibles();
+
+      @Query("select p from Producto p join p.usuario u where u.codigo = :id")
+      List<Producto> buscarProductosUsuario(String id);
 
         @Query("select p.usuario.nombre from Producto p where p.codigo= :id")
         String ObtenerNombreVendedor(String id);
@@ -48,5 +57,8 @@ public interface ProductoRepo extends JpaRepository<Producto, String> {
 
         @Query("select p from Producto p join p.categorias c where :codigo=c.codigo")
         List<Producto> listarProductosCategoria(Integer codigo);
+
+        @Query("update Producto p set p.unidades = p.unidades - :unidad where p.codigo = :id")
+        void disminuirUnidades(int unidad, String id);
 
 }

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -42,5 +43,9 @@ public class Compra implements Serializable {
         this.fechaCompra=fechaCompra;
         this.medioPago=medioPago;
         this.usuario=usuario;
+    }
+
+    public String getFechaEstilo(){
+        return fechaCompra.format(DateTimeFormatter.ISO_DATE);
     }
 }

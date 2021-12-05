@@ -1,7 +1,9 @@
 package co.edu.uniquindio.proyecto.bean;
 
+import co.edu.uniquindio.proyecto.entidades.Categoria;
 import co.edu.uniquindio.proyecto.entidades.Comentario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
+import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
@@ -31,6 +33,8 @@ public class DetalleProductoBean implements Serializable {
 
     @Getter @Setter
     private Producto producto;
+    @Getter @Setter
+    private Integer promedio;
 
     @Getter @Setter
     private Comentario nuevoComentario;
@@ -38,14 +42,18 @@ public class DetalleProductoBean implements Serializable {
     @Getter @Setter
     private List<Comentario> listaComentarios;
 
+    @Value("#{seguridadBean.usuarioSesion}")
+    private Usuario usuarioSesion;
+
     @PostConstruct
     public void inicializar(){
         nuevoComentario= new Comentario();
 
         if(codigoProducto!=null && !codigoProducto.isEmpty()){
             try {
-                producto= productoServicio.obtenerProducto(codigoProducto);
+                producto= productoServicio.obtenerProducto(Integer.parseInt(codigoProducto));
                 this.listaComentarios= producto.getComentarios();
+                this.promedio= productoServicio.calificacionPromedio(Integer.parseInt(codigoProducto));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -56,14 +64,21 @@ public class DetalleProductoBean implements Serializable {
     public void crearComentario(){
 
         try {
-            nuevoComentario.setProducto(producto);
-            nuevoComentario.setUsuario(usuarioServicio.obtenerUnUsuario("123"));
-            productoServicio.comentarProducto(nuevoComentario);
-            this.listaComentarios.add(nuevoComentario);
-            nuevoComentario=new Comentario();
+            if(usuarioSesion!=null) {
+                nuevoComentario.setProducto(producto);
+                nuevoComentario.setUsuario(usuarioSesion);
+                productoServicio.comentarProducto(nuevoComentario);
+                this.listaComentarios.add(nuevoComentario);
+                nuevoComentario = new Comentario();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    public Integer calificacionPromedio(){
+        return this.listaComentarios.get(0).getCalificacion();
+    }
+
+
 
 }

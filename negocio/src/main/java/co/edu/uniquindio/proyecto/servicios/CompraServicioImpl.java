@@ -5,6 +5,8 @@ import co.edu.uniquindio.proyecto.repositorios.CompraRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CompraServicioImpl implements CompraServicio{
 
@@ -21,5 +23,10 @@ public class CompraServicioImpl implements CompraServicio{
         }catch(Exception e){
             throw new Exception((e.getMessage()));
         }
+    }
+
+    @Override
+    public List<Compra> listarComprasUsuario(String id) {
+        return compraRepo.comprasUsuario(id);
     }
 }

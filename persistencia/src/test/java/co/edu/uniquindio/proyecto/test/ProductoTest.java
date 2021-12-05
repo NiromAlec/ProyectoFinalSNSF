@@ -33,7 +33,7 @@ public class ProductoTest {
 
         Ciudad ciudad = ciudadRepo.findById(1).orElse(null);
         Usuario usuario = usuarioRepo.findById("789").orElse(null);
-        Producto producto= new Producto("444", "arequipe", 10, "arequipe de queso",5000.0,LocalDateTime.now(), 0.5,  usuario,ciudad);
+        Producto producto= new Producto(444, "arequipe", 10, "arequipe de queso",5000.0,LocalDateTime.now(), 0.5,  usuario,ciudad);
 
         Producto productoGuardado= productoRepo.save(producto);
         System.out.println(productoGuardado);
@@ -44,9 +44,9 @@ public class ProductoTest {
     @Sql("classpath:pruebas.sql")
     public void eliminarTest(){
 
-        productoRepo.deleteById("222");
+        productoRepo.deleteById(222);
 
-        Producto productoBuscado= productoRepo.findById("222").orElse(null);
+        Producto productoBuscado= productoRepo.findById(222).orElse(null);
 
         Assertions.assertNull(productoBuscado);
     }
@@ -55,10 +55,10 @@ public class ProductoTest {
     @Sql("classpath:pruebas.sql")
     public void actualizarTest(){
 
-        Producto guardado = productoRepo.findById("333").orElse(null);
+        Producto guardado = productoRepo.findById(333).orElse(null);
         guardado.setNombre("Cafe");
         productoRepo.save(guardado);
-        Producto productoBuscado= productoRepo.findById("333").orElse(null);
+        Producto productoBuscado= productoRepo.findById(333).orElse(null);
         Assertions.assertEquals("Cafe", productoBuscado.getNombre());
     }
     @Test
