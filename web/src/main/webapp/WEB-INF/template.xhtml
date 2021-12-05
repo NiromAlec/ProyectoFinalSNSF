@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <h:outputStylesheet library="css" name="style.css" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <h:outputScript library="js" name="bootstrap.bundle.min.js" />
+    <title>Unishop | <ui:insert name="title">Título</ui:insert></title>
+</h:head>
+<h:body>
+
+    <div id="header" style="margin-bottom: 10px">
+        <header class="p-3 bg-dark text-white">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <span class="pi pi-shopping-cart" style="font-size: 2.5rem;margin-right: 5px"/>
+                        <span class="fs-4" style="margin-right: 10px">Unishop</span>
+                    </a>
+
+                    <div class="card" style="margin-right: 10px">
+                        <h:form>
+                            <p:menubar>
+
+                                <p:menuitem value="Inicio" icon="pi pi-fw pi-home" url="/index.xhtml"/>
+                                <p:divider layout="vertical"/>
+
+                                <p:submenu label="Menu de #{seguridadBean.usuarioSesion.nombre}"  rendered="#{seguridadBean.autenticado}" icon="pi pi-fw pi-list">
+                                    <p:menuitem value="Ver mi perfil" icon="pi pi-fw pi-id-card" url="/usuario/perfil.xhtml"/>
+                                    <p:menuitem value="Crear producto" icon="pi pi-fw pi-plus" url="/usuario/crearProducto.xhtml"/>
+                                    <p:menuitem value="Mis compras" icon="pi pi-fw pi-dollar" url="/usuario/comprasUsuario.xhtml" />
+                                    <p:menuitem value="Mis Productos" icon="pi pi-fw pi-align-left" url="/usuario/misProductos.xhtml"/>
+                                </p:submenu>
+
+                                <p:menuitem value="Carrito" icon="pi pi-fw pi-shopping-cart" url="/usuario/carrito.xhtml" rendered="#{seguridadBean.autenticado}" style="margin-right: 10px"/>
+                                <f:facet name="options">
+                                    <div class="col-12 col-lg-auto mb-3 mb-lg-0 input-search ui-inputgroup">
+                                        <p:inputText style="width: 300px" type="search " placeholder="¿Qué producto está buscando?"
+                                                     required="true" value="#{busquedaBean.busqueda}" />
+
+                                        <p:commandButton update="@form" icon="pi pi-search" style="background-color: #ffc400; border-color: #ffc400; color: black; margin-right: 10px;"
+                                                         action="#{busquedaBean.buscar}" />
+                                    </div>
+                                </f:facet>
+                            </p:menubar>
+                        </h:form>
+                    </div>
+                    <div jsf:rendered="#{!seguridadBean.autenticado}" class="text-end">
+                        <h:form>
+                            <p:commandButton styleClass="ui-button-raised ui-button-warning" icon="pi pi-user"
+                                             iconPos="left" value="Iniciar Sesion" onclick="PF('login').show()"
+                                             style="background-color: transparent; border-color: white; color: white; margin-right: 5px"/>
+                            <p:commandButton value="Registrarse" styleClass="ui-button-raised ui-button-warning" style="background-color: #ffc400" action="registrarUsuario?faces-redirect=true"/>
+                        </h:form>
+                    </div>
+                    <div jsf:rendered="#{seguridadBean.autenticado}" class="text-end">
+                        <h:form>
+                            <p:commandButton styleClass="ui-button-raised ui-button-warning" icon="pi pi-sign-out" value="Cerrar sesion" style="background-color: transparent; border-color: white; color: white" action="#{seguridadBean.cerrarSesion}"/>
+                        </h:form>
+                    </div>
+                    <p:dialog header="Iniciar sesión" showEffect="puff" widgetVar="login" modal="true"
+                              rendered="#{!seguridadBean.autenticado}" >
+                        <h:form >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <p:outputLabel for="email_login" value="Email:" />
+                                <p:inputText id="email_login" value="#{seguridadBean.email}" required="true" />
+                                <p:message for="email_login" />
+                                <p:outputLabel for="password_login" value="Password:" />
+                                <p:password id="password_login" value="#{seguridadBean.password}" required="true"/>
+                                <p:message for="password_login" />
+                            </h:panelGrid>
+                            <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion}"
+                                             styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left" />
+                            <p:growl for="login-bean" showDetail="true" />
+                        </h:form>
+                    </p:dialog>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div id="content">
+        <div class="container">
+            <ui:insert name="content">Contenido</ui:insert>
+        </div>
+
+    </div>
+    <div id="footer" class="footer mt-4">
+        <ui:insert name="footer">
+            <div class="py-4 bg-light" align="center">
+                <div class="justify-content-center" >
+                    <div class="col-10" >
+                        <span>Universidad del Quindío - Programación avanzada - 2021</span>
+                    </div>
+                </div>
+            </div>
+        </ui:insert>
+    </div>
+</h:body>
+</html>

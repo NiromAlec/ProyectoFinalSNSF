@@ -1,16 +1,18 @@
 package co.edu.uniquindio.proyecto.servicios;
 
+import co.edu.uniquindio.proyecto.dto.ProductoCarrito;
 import co.edu.uniquindio.proyecto.entidades.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ProductoServicio {
 
     Producto publicarProducto(Producto p) throws Exception;
     void actualizarProducto(Producto p) throws Exception;
-    void eliminarProducto(String codigo) throws Exception;
-    Producto obtenerProducto(String codigo) throws Exception;
+    void eliminarProducto(Integer codigo) throws Exception;
+    Producto obtenerProducto(Integer codigo) throws Exception;
     List<Producto> listarProductosCategoria(Integer codigo);
     List<Producto> listarTodosLosProductos();
     void comentarProducto(Comentario comentario) throws Exception;
@@ -20,4 +22,7 @@ public interface ProductoServicio {
     void calificarProducto(double calificacion);
     List<Producto> buscarProductos(String nombreProducto, String[] filtros);
     List<Producto> listarProductoUsuario(String codigoUsuario) throws Exception;
+    Integer categoriaPromedio(Integer codigo);
+    Compra comprarProductos(Usuario usuario, ArrayList<ProductoCarrito> productoCarrito, MedioPago medioPago) throws Exception;
+
 }

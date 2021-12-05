@@ -57,6 +57,9 @@ public class ProductoBean implements Serializable {
     @Value("${upload.url}")
     private String urlUploads;
 
+    @Value("#{seguridadBean.usuarioSesion}")
+    private Usuario usuarioSesion;
+
     @PostConstruct
     public void inicializar() {
         this.producto = new Producto();
@@ -65,23 +68,28 @@ public class ProductoBean implements Serializable {
         ciudades= ciudadServicio.listarCiudades();
     }
 
+    public void modificarProducto(){
+
+    }
     public void crearProducto() {
         try {
-            if(!imagenes.isEmpty()){
-                Usuario usuario = usuarioServicio.obtenerUnUsuario("123");
-                producto.setUsuario(usuario);
-                producto.setImagen(imagenes);
-                producto.setFechaLimite(LocalDateTime.now().plusMonths(1));
-                productoServicio.publicarProducto(producto);
-                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta",
-                        "Producto creado satisfacotiramente :D");
-                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            if(usuarioSesion!=null) {
+                if (!imagenes.isEmpty()) {
+
+                    producto.setUsuario(usuarioSesion);
+                    producto.setImagen(imagenes);
+                    producto.setFechaLimite(LocalDateTime.now().plusMonths(1));
+                    productoServicio.publicarProducto(producto);
+                    FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta",
+                            "Producto creado satisfacotiramente :D");
+                    FacesContext.getCurrentInstance().addMessage("productoBean", facesMsg);
+                }
             }
 
         } catch (Exception e) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta",
                     "Es necesario subir almenos una imagen");
-            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            FacesContext.getCurrentInstance().addMessage("productoBean", facesMsg);
         }
     }
 

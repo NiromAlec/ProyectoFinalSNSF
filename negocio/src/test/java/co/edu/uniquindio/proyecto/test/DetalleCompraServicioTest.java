@@ -40,7 +40,7 @@ public class DetalleCompraServicioTest {
             //CREA EL PRODUCTO
             Usuario vendedor= usuarioServicio.obtenerUnUsuario("741");
             LocalDateTime ldt= LocalDateTime.of(2023, 11, 30, 20, 10);
-            Producto producto= new Producto("1", "Televisor LG 55 pulgadadas", 2, "bla bla bla", 250000.55, ldt, 0.2, vendedor, null);
+            Producto producto= new Producto("Televisor LG 55 pulgadadas", 2, "bla bla bla", 250000.55, ldt, 0.2, vendedor, null);
             Producto publicado=productoServicio.publicarProducto(producto);
             //
             DetalleCompra dc= new DetalleCompra(2,publicado.getPrecio(), publicado, respuestaC);

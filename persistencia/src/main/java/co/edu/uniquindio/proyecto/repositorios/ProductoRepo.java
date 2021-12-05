@@ -13,12 +13,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ProductoRepo extends JpaRepository<Producto, String> {
+public interface ProductoRepo extends JpaRepository<Producto, Integer> {
 
         Page<Producto> findAll(Pageable paginador);
 
         @Query("select p.usuario.nombre from Producto p where p.codigo= :id")
         String ObtenerNombreVendedor(String id);
+        @Query("select avg(c.calificacion) from Comentario c join c.producto p where p.codigo= :codigo")
+        Integer calificacionPromedio(Integer codigo);
         @Query("select p from Producto p where p.nombre like concat('%', :nombre, '%') ")
         List<Producto> buscarProductoNombre(String nombre);
 
@@ -48,5 +50,8 @@ public interface ProductoRepo extends JpaRepository<Producto, String> {
 
         @Query("select p from Producto p join p.categorias c where :codigo=c.codigo")
         List<Producto> listarProductosCategoria(Integer codigo);
+
+        @Query("Select p from Producto  p join p.usuario u where :codigo=u.codigo")
+        List<Producto> listaProductosUsuario(String codigo);
 
 }

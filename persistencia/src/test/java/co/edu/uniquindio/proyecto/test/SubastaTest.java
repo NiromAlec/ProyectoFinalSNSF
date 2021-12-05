@@ -29,9 +29,9 @@ public class SubastaTest {
     @Sql("classpath:pruebas.sql")
     public void registrarTest(){
 
-        Producto producto = productoRepo.findById("111").orElse(null);
+        Producto producto = productoRepo.findById(1).orElse(null);
 
-        Subasta subasta= new Subasta("4", LocalDate.now(), producto );
+        Subasta subasta= new Subasta(LocalDate.now(), producto );
 
         Subasta subastaGuardado= subastaRepo.save(subasta);
         System.out.println(subastaGuardado);
@@ -53,7 +53,7 @@ public class SubastaTest {
     @Sql("classpath:pruebas.sql")
     public void actualizarTest(){
 
-        Producto producto = productoRepo.findById("222").orElse(null);
+        Producto producto = productoRepo.findById(2).orElse(null);
         Subasta guardado = subastaRepo.findById("6").orElse(null);
         guardado.setProducto(producto);
         subastaRepo.save(guardado);

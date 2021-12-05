@@ -28,7 +28,7 @@ public class ProductoServicioTest {
         try{
             Usuario vendedor= usuarioServicio.obtenerUnUsuario("741");
             LocalDateTime ldt= LocalDateTime.of(2021, 11, 25, 20, 10);
-            Producto producto= new Producto("1", "Televisor LG 55 pulgadadas", 2, "bla bla bla", 250000.55, ldt, 0.2, vendedor, null);
+            Producto producto= new Producto( "Televisor LG 55 pulgadadas", 2, "bla bla bla", 250000.55, ldt, 0.2, vendedor, null);
             Producto publicado=productoServicio.publicarProducto(producto);
             Assertions.assertNotNull(publicado);
         }catch (Exception e){

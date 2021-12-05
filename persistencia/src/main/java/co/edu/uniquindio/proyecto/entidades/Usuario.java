@@ -13,15 +13,12 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true)
-/**
- * Clase Usuario, restricciones para atributos y uso de lombok
- * Extiende de Persona por ende llama tambien su ToString
- */
+
 public class Usuario extends Persona implements Serializable {
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     //@Column(nullable = false)
-    private Map <String, String> telefonos;
+    private List<String> telefonos;
    /*
     @Column(nullable = false, unique = true)
     private String username;
@@ -55,7 +52,6 @@ public class Usuario extends Persona implements Serializable {
 
     public Usuario(String codigo, String nombre, String email, String password, Map<String, String> telefonos, Ciudad ciudad) {
         super(codigo, nombre, email, password);
-        this.telefonos = telefonos;
         this.ciudad=ciudad;
     }
 
